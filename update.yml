@@ -1,0 +1,51 @@
+name: Actualizar Bitácora de Valor
+
+on:
+  schedule:
+    # Corre a las 09:00 y 21:00 UTC (ajustá según tu zona horaria / horarios de partidos)
+    - cron: "0 9,21 * * *"
+  workflow_dispatch: {}  # permite correrlo manualmente desde la pestaña "Actions" en GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Arreglar git para que netlify-cli no falle (detached HEAD / ownership)
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git checkout -B "${{ github.ref_name }}"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Correr análisis
+        env:
+          HIGHLIGHTLY_API_KEY: ${{ secrets.HIGHLIGHTLY_API_KEY }}
+        run: python main.py
+
+      - name: Commitear resultados (cache y log, quedan en el repo privado)
+        run: |
+          git config user.name "bitacora-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/ docs/
+          git diff --quiet --cached || git commit -m "Actualización automática de alertas"
+          git push
+
+      - name: Publicar HTML en Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install -g netlify-cli
+          netlify deploy --prod --dir=docs --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN" --message "Actualización automática $(date -u +%Y-%m-%dT%H:%M:%SZ)"
