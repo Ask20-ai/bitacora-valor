@@ -45,6 +45,8 @@ def resolve_leagues(client, leagues_config: list) -> dict:
     Devuelve {key: {"id": int, "name": str, "country": str, "latest_season": int}}
     Usa el caché en disco si ya existe; si falta alguna liga, la busca y la agrega.
     """
+    from api_client import RateLimitExceeded  # import local para evitar dependencia circular
+
     cached = load_cached_leagues()
     changed = False
 
@@ -52,7 +54,12 @@ def resolve_leagues(client, leagues_config: list) -> dict:
         key = league["key"]
         if key in cached:
             continue
-        results = client.search_leagues(league["search"], league.get("country"))
+        try:
+            results = client.search_leagues(league["search"], league.get("country"))
+        except RateLimitExceeded:
+            if changed:
+                save_cached_leagues(cached)
+            raise
         best = _best_match(results, league["search"], league.get("country"))
         if not best:
             print(f"[AVISO] No se encontró la liga '{league['search']}' "
