@@ -1,22 +1,14 @@
 """
-Cliente delgado para la Highlightly Football API (https://highlightly.net).
-
-Podés crear tu cuenta/API key en:
-  - https://highlightly.net/login   (directo)
-  - https://rapidapi.com/highlightly-api-highlightly-api-default/api/football-highlights-api
-    (alternativa vía RapidAPI, por si el sitio directo te bloquea la IP)
-
-Base URL usada acá: https://soccer.highlightly.net (acceso directo, sin pasar por RapidAPI).
-Si en algún momento preferís usar RapidAPI, solo hay que cambiar BASE_URL a
-https://football-highlights-api.p.rapidapi.com y agregar el header
-x-rapidapi-host: football-highlights-api.p.rapidapi.com
+Cliente delgado para la Highlightly Football API, vía RapidAPI
+(https://rapidapi.com/highlightly-api-highlightly-api-default/api/football-highlights-api).
 """
 import os
 import json
 import time
 import requests
 
-BASE_URL = "https://soccer.highlightly.net"
+BASE_URL = "https://football-highlights-api.p.rapidapi.com"
+RAPIDAPI_HOST = "football-highlights-api.p.rapidapi.com"
 
 
 class RequestBudgetExceeded(Exception):
@@ -53,7 +45,10 @@ class HighlightlyClient:
                 f"Se alcanzó el límite de {self.max_requests} requests en esta corrida."
             )
 
-        headers = {"x-rapidapi-key": self.api_key}
+        headers = {
+            "x-rapidapi-key": self.api_key,
+            "x-rapidapi-host": RAPIDAPI_HOST,
+        }
         resp = requests.get(f"{BASE_URL}{endpoint}", headers=headers, params=params or {}, timeout=30)
         self.requests_used += 1
         resp.raise_for_status()

@@ -3,50 +3,63 @@
 Sistema que revisa los próximos partidos de tus ligas, calcula promedios de
 corners y tarjetas por equipo, y detecta partidos donde hay **doble
 confirmación** (un equipo ataca mucho + el rival concede mucho) en el mismo
-mercado. Corre solo, gratis, vía GitHub Actions, y publica los resultados en
-una página web (GitHub Pages).
+mercado. Corre solo, gratis, vía GitHub Actions (con tu repo en privado), y
+publica los resultados en una página web gratuita en Netlify — sin que
+Netlify tenga acceso a tu código.
 
 Fuente de datos: **Highlightly Football API**.
 
 ## 1. Conseguir tu API key (gratis, sin tarjeta)
 
-1. Andá a https://highlightly.net/login y creá tu cuenta.
-   - Alternativa si esa vía te da problemas de acceso: registrate en RapidAPI
-     en https://rapidapi.com/highlightly-api-highlightly-api-default/api/football-highlights-api
-     (las cuentas de Highlightly y RapidAPI son independientes entre sí, elegí una).
-2. En tu dashboard vas a ver tu API key.
+1. Registrate en RapidAPI y suscribite (gratis) a "Football Highlights API":
+   https://rapidapi.com/highlightly-api-highlightly-api-default/api/football-highlights-api
+2. En la página de esa API dentro de RapidAPI vas a ver tu **X-RapidAPI-Key**
+   (es la misma para todas las APIs de RapidAPI a las que te suscribas).
 3. El plan gratuito (Basic) da 100 requests/día, sin tarjeta de crédito.
 
-## 2. Subir este proyecto a GitHub
+## 2. Subir este proyecto a GitHub (repo PRIVADO)
 
-1. Creá un repositorio nuevo en GitHub, por ejemplo `bitacora-valor`.
+1. Creá un repositorio nuevo en GitHub, por ejemplo `bitacora-valor`, marcado
+   como **Private**.
 2. Subí todos estos archivos y carpetas tal cual están.
 
-## 3. Guardar tu API key como secreto
+## 3. Guardar tu API key de Highlightly como secreto
 
 1. En tu repo: **Settings → Secrets and variables → Actions → New repository secret**
 2. Nombre: `HIGHLIGHTLY_API_KEY`
 3. Valor: tu key de Highlightly (o de RapidAPI, según por dónde te registraste)
 4. Guardar.
 
-> Si te registraste vía RapidAPI en vez de Highlightly directo, avisame:
-> el endpoint cambia levemente (necesita un header adicional
-> `x-rapidapi-host`) y hay que ajustar una línea en `api_client.py`.
+## 4. Publicar la página con Netlify (repo se queda privado)
 
-## 4. Activar GitHub Pages
+Con esto, Netlify nunca se conecta a tu repo de GitHub — el Action genera el
+HTML y se lo sube directo a Netlify por su CLI. Netlify solo ve la página
+final, no tu código.
 
-1. En tu repo: **Settings → Pages**
-2. "Build and deployment" → Source: **Deploy from a branch**
-3. Branch: `main`, carpeta: `/docs`
-4. Guardar. Te va a dar una URL tipo
-   `https://tu-usuario.github.io/bitacora-valor/`.
+1. Creá una cuenta gratis en https://app.netlify.com/signup
+2. Una vez adentro, andá a **Sites → Add new site → Deploy manually**, y
+   arrastrá cualquier carpeta vacía o un archivo `index.html` de prueba (esto
+   es solo para que Netlify te cree un sitio y te dé un Site ID; el contenido
+   real lo va a pisar el Action en cada corrida).
+3. En ese sitio, andá a **Site configuration → General → Site details** y
+   copiá el **Site ID**.
+4. Andá a **User settings → Applications → Personal access tokens → New access token**
+   y generá uno (dale cualquier nombre, ej. "bitacora-valor").
+5. En tu repo de GitHub: **Settings → Secrets and variables → Actions**,
+   agregá dos secretos más:
+   - `NETLIFY_AUTH_TOKEN`: el personal access token que generaste
+   - `NETLIFY_SITE_ID`: el Site ID que copiaste
+6. Listo. Cada vez que corra el workflow, va a publicar `docs/index.html` en
+   tu sitio de Netlify (la URL te la da Netlify, tipo
+   `https://nombre-random.netlify.app`, y la podés personalizar desde
+   **Site configuration → Domain management**).
 
 ## 5. Probarlo manualmente
 
 1. Pestaña **Actions** en tu repo
 2. Workflow "Actualizar Bitácora de Valor" → botón **Run workflow**
-3. Mirá los logs: te dice qué ligas resolvió, cuántas alertas encontró, y
-   cuántos requests gastó.
+3. Mirá los logs: te dice qué ligas resolvió, cuántas alertas encontró,
+   cuántos requests gastó, y si el deploy a Netlify salió bien.
 
 ## 6. Ajustar a tu gusto
 
