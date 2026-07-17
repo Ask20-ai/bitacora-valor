@@ -3,7 +3,7 @@ import json
 from datetime import datetime, timedelta, timezone
 
 from config import LEAGUES, LOOKAHEAD_DAYS, MAX_REQUESTS_PER_RUN
-from api_client import HighlightlyClient, RequestBudgetExceeded
+from api_client import HighlightlyClient, RequestBudgetExceeded, RateLimitExceeded
 from leagues_store import resolve_leagues
 from analyze import team_rolling_stats, evaluate_market
 from render_html import render
@@ -30,7 +30,12 @@ def main():
     api_key = os.environ.get("HIGHLIGHTLY_API_KEY")
     client = HighlightlyClient(api_key, MAX_REQUESTS_PER_RUN)
 
-    leagues = resolve_leagues(client, LEAGUES)
+    try:
+        leagues = resolve_leagues(client, LEAGUES)
+    except RateLimitExceeded as e:
+        print(f"[STOP] {e}")
+        return
+
     if not leagues:
         print("No hay ligas resueltas. Revisá tu API key y la configuración de LEAGUES.")
         return
@@ -38,10 +43,15 @@ def main():
     now = datetime.now(timezone.utc)
     date_to = now + timedelta(days=LOOKAHEAD_DAYS)
 
+
     all_alerts = []
     stats_cache = {}  # evita recalcular el mismo equipo/mercado dos veces en la misma corrida
+    rate_limited = False
 
     for key, league_info in leagues.items():
+        if rate_limited:
+            break
+
         league_id = league_info["id"]
         season = league_info.get("latest_season")
         if season is None:
@@ -50,6 +60,10 @@ def main():
 
         try:
             response = client.matches_by_league_season(league_id, season)
+        except RateLimitExceeded as e:
+            print(f"[STOP] {e}")
+            rate_limited = True
+            break
         except RequestBudgetExceeded as e:
             print(f"[STOP] {e}")
             break
@@ -65,6 +79,9 @@ def main():
             continue
 
         for match in upcoming:
+            if rate_limited:
+                break
+
             home = match["homeTeam"]
             away = match["awayTeam"]
             fixture_meta = {
@@ -88,6 +105,10 @@ def main():
                     if result:
                         all_alerts.append({"fixture": fixture_meta, "result": result})
 
+                except RateLimitExceeded as e:
+                    print(f"[STOP] {e}")
+                    rate_limited = True
+                    break
                 except RequestBudgetExceeded as e:
                     print(f"[STOP] {e}")
                     break
