@@ -26,7 +26,22 @@ def _is_upcoming(match: dict, date_from: datetime, date_to: datetime) -> bool:
     return date_from <= match_date <= date_to
 
 
+def _ensure_folders_with_placeholder():
+    """
+    Crea data/ y docs/ con contenido mínimo desde el arranque, para que
+    'git add data/ docs/' nunca falle (git no trackea carpetas vacías) aunque
+    el script corte antes de tiempo (ej. por un 429 de la API).
+    """
+    os.makedirs("data", exist_ok=True)
+    os.makedirs("docs", exist_ok=True)
+    if not os.path.exists("docs/index.html"):
+        with open("docs/index.html", "w", encoding="utf-8") as f:
+            f.write(render([]))
+
+
 def main():
+    _ensure_folders_with_placeholder()
+
     api_key = os.environ.get("HIGHLIGHTLY_API_KEY")
     client = HighlightlyClient(api_key, MAX_REQUESTS_PER_RUN)
 
