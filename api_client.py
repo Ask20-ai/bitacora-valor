@@ -6,9 +6,14 @@ import os
 import json
 import time
 import requests
+from datetime import datetime, timezone
 
 BASE_URL = "https://football-highlights-api.p.rapidapi.com"
 RAPIDAPI_HOST = "football-highlights-api.p.rapidapi.com"
+
+
+def _today_str() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 class RequestBudgetExceeded(Exception):
@@ -88,10 +93,22 @@ class HighlightlyClient:
 
     def matches_by_league_season(self, league_id: int, season: int, limit: int = 100, offset: int = 0):
         params = {"leagueId": league_id, "season": season, "limit": limit, "offset": offset}
-        return self._get("/matches", params)
+        # Cache con vencimiento diario: los partidos próximos no cambian tan
+        # seguido como para pedirlos de nuevo en cada corrida del mismo día.
+        return self._get(
+            "/matches", params,
+            cache_key=f"matches_{league_id}_{season}_{_today_str()}",
+            cacheable=True,
+        )
 
     def last_five_games(self, team_id: int):
-        return self._get("/last-five-games", {"teamId": team_id})
+        # Mismo criterio: un equipo casi nunca juega más de una vez por día,
+        # así que alcanza con pedir esto una vez por día por equipo.
+        return self._get(
+            "/last-five-games", {"teamId": team_id},
+            cache_key=f"last5_{team_id}_{_today_str()}",
+            cacheable=True,
+        )
 
     def match_statistics(self, match_id: int):
         # Cacheable: un partido ya jugado no cambia sus estadísticas.
