@@ -2,9 +2,8 @@ name: Actualizar Bitácora de Valor
 
 on:
   schedule:
-    # Corre a las 09:00 y 21:00 UTC (ajustá según tu zona horaria / horarios de partidos)
     - cron: "0 9,21 * * *"
-  workflow_dispatch: {}  # permite correrlo manualmente desde la pestaña "Actions" en GitHub
+  workflow_dispatch: {}
 
 permissions:
   contents: write
