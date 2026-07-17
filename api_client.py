@@ -15,6 +15,10 @@ class RequestBudgetExceeded(Exception):
     pass
 
 
+class RateLimitExceeded(Exception):
+    pass
+
+
 class HighlightlyClient:
     def __init__(self, api_key: str, max_requests: int, cache_dir: str = "data/cache"):
         if not api_key:
@@ -51,6 +55,16 @@ class HighlightlyClient:
         }
         resp = requests.get(f"{BASE_URL}{endpoint}", headers=headers, params=params or {}, timeout=30)
         self.requests_used += 1
+
+        if resp.status_code == 429:
+            raise RateLimitExceeded(
+                "RapidAPI devolvió 429 (Too Many Requests). Esto significa que ya se "
+                "gastó la cuota diaria gratuita, o que falta confirmar la suscripción "
+                "al plan Basic/Free en la pestaña 'Pricing' de la API en RapidAPI. "
+                "Revisá tu panel de RapidAPI (My Apps -> Analytics) para confirmar cuánto "
+                "consumo llevás hoy."
+            )
+
         resp.raise_for_status()
         data = resp.json()
 
