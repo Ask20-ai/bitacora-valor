@@ -79,10 +79,15 @@ Todo lo importante está en `config.py`:
   esas ligas, es la API, no un bug — el sistema simplemente no genera alerta
   ahí por falta de datos confiables (esto es intencional, para no inventar
   señales de la nada).
-- **Consumo de requests**: el caché en `data/cache/` guarda estadísticas de
-  partidos ya finalizados (esos datos no cambian), así que el consumo baja
-  con el tiempo. Los partidos próximos y los "last five games" de cada
-  equipo SÍ se piden de nuevo cada corrida.
+- **Consumo de requests**: hay dos niveles de caché para gastar lo mínimo
+  posible:
+  - **Permanente**: estadísticas de partidos ya finalizados (`data/cache/match_stats_*.json`)
+    nunca se vuelven a pedir, porque esos datos no cambian.
+  - **Diario**: los partidos próximos de cada liga y los "últimos 5 partidos"
+    de cada equipo (`data/cache/matches_*.json`, `data/cache/last5_*.json`)
+    se piden una vez por día — si el workflow corre varias veces el mismo
+    día (ej. a las 09:00 y a las 21:00), la segunda corrida reusa lo que ya
+    se pidió a la mañana, sin gastar cuota de nuevo.
 - **Este es un punto de partida**, no un sistema de apuestas "llave en mano".
   La calibración de los umbrales con tus propios resultados (como ya venís
   haciendo con tu tracker de ROI) es lo que le va a dar valor real con el
