@@ -29,7 +29,7 @@ jobs:
       - name: Correr prueba de ajuste del modelo
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-        run: python predictor/fit_and_test.py
+        run: python -m predictor.fit_and_test
 
       - name: Commitear resultados de la prueba
         run: |
