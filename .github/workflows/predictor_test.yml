@@ -1,4 +1,4 @@
-name: "[PRUEBA] Ajustar modelo de predicción"
+name: "[PRUEBA] Ajustar modelo de predicciÃ³n"
 
 on:
   workflow_dispatch: {}
@@ -28,7 +28,7 @@ jobs:
 
       - name: Correr prueba de ajuste del modelo
         env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          HIGHLIGHTLY_API_KEY: ${{ secrets.HIGHLIGHTLY_API_KEY }}
         run: python -m predictor.fit_and_test
 
       - name: Commitear resultados de la prueba
@@ -36,5 +36,5 @@ jobs:
           git config user.name "bitacora-bot"
           git config user.email "bot@users.noreply.github.com"
           git add predictor/data/
-          git diff --quiet --cached || git commit -m "Prueba de ajuste del modelo de predicción"
+          git diff --quiet --cached || git commit -m "Prueba de ajuste del modelo de predicciÃ³n"
           git push
