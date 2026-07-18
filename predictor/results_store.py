@@ -2,10 +2,10 @@
 Mantiene un archivo por liga con el historial de resultados (goles local/visita,
 fecha, equipos) que alimenta el modelo Dixon-Coles.
 
-Partidos ya finalizados no cambian, así que esto se guarda para siempre y en
-cada corrida solo se agregan los partidos finalizados que todavía no estén
-en el archivo (por eso el consumo de requests baja con el tiempo, salvo la
-temporada en curso que sigue sumando fechas).
+Usa el mismo cliente de Highlightly (api_client.py) que ya usa el resto del
+sistema para corners/tarjetas — no hace falta ninguna API nueva. El marcador
+final viene en el propio endpoint /matches, en state.score.current
+(ej. "5 - 0"), cuando state.description == "Finished".
 """
 import os
 import json
@@ -31,38 +31,63 @@ def save_results(league_key: str, results: list):
         json.dump(results, f, indent=2, ensure_ascii=False)
 
 
-def _to_record(fixture: dict) -> dict:
+def _parse_score(score_current: str):
+    """'5 - 0' -> (5, 0). Devuelve None si el formato no es el esperado."""
+    if not score_current:
+        return None
+    parts = score_current.split(" - ")
+    if len(parts) != 2:
+        return None
+    try:
+        return int(parts[0].strip()), int(parts[1].strip())
+    except ValueError:
+        return None
+
+
+def _to_record(match: dict):
+    state = match.get("state", {})
+    if state.get("description") != "Finished":
+        return None
+
+    score = _parse_score(state.get("score", {}).get("current"))
+    if score is None:
+        return None
+    home_goals, away_goals = score
+
     return {
-        "fixture_id": fixture["fixture"]["id"],
-        "date": fixture["fixture"]["date"][:10],
-        "home_team": fixture["teams"]["home"]["name"],
-        "away_team": fixture["teams"]["away"]["name"],
-        "home_goals": fixture["goals"]["home"],
-        "away_goals": fixture["goals"]["away"],
+        "match_id": match["id"],
+        "date": match["date"][:10],
+        "home_team": match["homeTeam"]["name"],
+        "away_team": match["awayTeam"]["name"],
+        "home_goals": home_goals,
+        "away_goals": away_goals,
     }
 
 
 def update_results(client, league_key: str, league_id: int, seasons: list) -> list:
     """
-    Trae los partidos finalizados de las temporadas indicadas y los combina
-    con lo que ya había guardado, sin duplicar (por fixture_id).
+    Trae los partidos finalizados de las temporadas indicadas (vía Highlightly)
+    y los combina con lo que ya había guardado, sin duplicar (por match_id).
+    Las temporadas que el plan actual no deje ver simplemente devuelven poco
+    o nada, sin romper el resto.
     """
     existing = load_results(league_key)
-    existing_ids = {r["fixture_id"] for r in existing}
+    existing_ids = {r["match_id"] for r in existing}
 
     new_records = []
     for season in seasons:
         try:
-            fixtures = client.finished_fixtures(league_id, season)
+            response = client.matches_by_league_season(league_id, season, permanent=True)
         except Exception as e:
-            print(f"[AVISO] No se pudo traer la temporada {season} de '{league_key}' "
-                  f"(probablemente restringida por tu plan actual): {e}")
+            print(f"[AVISO] No se pudo traer la temporada {season} de '{league_key}': {e}")
             continue
-        for fx in fixtures:
-            record = _to_record(fx)
-            if record["fixture_id"] not in existing_ids:
+
+        matches = response.get("data", [])
+        for match in matches:
+            record = _to_record(match)
+            if record and record["match_id"] not in existing_ids:
                 new_records.append(record)
-                existing_ids.add(record["fixture_id"])
+                existing_ids.add(record["match_id"])
 
     combined = existing + new_records
     combined.sort(key=lambda r: r["date"])

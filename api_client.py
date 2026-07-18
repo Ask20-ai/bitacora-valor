@@ -91,15 +91,20 @@ class HighlightlyClient:
         data = self._get("/leagues", params)
         return data.get("data", [])
 
-    def matches_by_league_season(self, league_id: int, season: int, limit: int = 100, offset: int = 0):
+    def matches_by_league_season(self, league_id: int, season: int, limit: int = 100, offset: int = 0,
+                                  permanent: bool = False):
+        """
+        permanent=False (default): usado para partidos próximos, que sí cambian
+        día a día -> cache con vencimiento diario.
+        permanent=True: usado para temporadas ya finalizadas (historial para el
+        modelo de predicción), que nunca cambian -> cache para siempre.
+        """
         params = {"leagueId": league_id, "season": season, "limit": limit, "offset": offset}
-        # Cache con vencimiento diario: los partidos próximos no cambian tan
-        # seguido como para pedirlos de nuevo en cada corrida del mismo día.
-        return self._get(
-            "/matches", params,
-            cache_key=f"matches_{league_id}_{season}_{_today_str()}",
-            cacheable=True,
-        )
+        if permanent:
+            cache_key = f"matches_permanent_{league_id}_{season}"
+        else:
+            cache_key = f"matches_{league_id}_{season}_{_today_str()}"
+        return self._get("/matches", params, cache_key=cache_key, cacheable=True)
 
     def last_five_games(self, team_id: int):
         # Mismo criterio: un equipo casi nunca juega más de una vez por día,

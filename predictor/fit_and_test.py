@@ -1,52 +1,44 @@
 """
-Script de PRUEBA para validar el ajuste del modelo con datos reales de MLS
-antes de integrarlo al resto del sistema.
+Script de PRUEBA para validar el ajuste del modelo con datos reales de MLS,
+usando Highlightly (mismo proveedor que ya usa el resto del sistema).
 
-Se corre vía el workflow manual '.github/workflows/predictor_test.yml',
-o localmente con la variable de entorno API_FOOTBALL_KEY seteada.
+Se corre vía el workflow manual '.github/workflows/predictor_test.yml'.
 """
 import os
 import json
+from datetime import datetime
 
-from predictor.af_client import ApiFootballClient
+from api_client import HighlightlyClient
+from leagues_store import resolve_leagues
 from predictor.results_store import update_results
 from predictor.poisson_model import fit_dixon_coles, predict_match
 
-MAX_REQUESTS = 20  # de sobra para esta prueba (1 liga, 2 temporadas)
+MAX_REQUESTS = 20  # de sobra para esta prueba (1 liga, pocas temporadas)
 LEAGUE_KEY = "mls"
-LEAGUE_SEARCH = "MLS"
-LEAGUE_COUNTRY = "USA"
+LEAGUE_CONFIG = [{"key": LEAGUE_KEY, "search": "MLS", "country": "USA"}]
 
 
 def main():
-    api_key = os.environ.get("API_FOOTBALL_KEY")
-    client = ApiFootballClient(api_key, MAX_REQUESTS)
+    api_key = os.environ.get("HIGHLIGHTLY_API_KEY")
+    client = HighlightlyClient(api_key, MAX_REQUESTS)
 
-    print(f"Buscando liga '{LEAGUE_SEARCH}'...")
-    results = client.search_league(LEAGUE_SEARCH, LEAGUE_COUNTRY)
-    if not results:
-        print("[ERROR] No se encontró la liga. Abortando.")
+    print("Buscando liga MLS (reusando el resolver que ya usa el resto del sistema)...")
+    leagues = resolve_leagues(client, LEAGUE_CONFIG)
+    league = leagues.get(LEAGUE_KEY)
+    if not league:
+        print("[ERROR] No se pudo resolver la liga MLS. Abortando.")
         return
 
-    league = results[0]
-    league_id = league["league"]["id"]
-    league_name = league["league"]["name"]
-    seasons_available = sorted(s["year"] for s in league.get("seasons", []))
+    league_id = league["id"]
+    latest_season = league.get("latest_season")
+    print(f"Liga: {league['name']} (id={league_id}), temporada más reciente conocida: {latest_season}")
 
-    if not seasons_available:
-        print("[ERROR] La liga no tiene temporadas listadas en la API.")
+    if latest_season is None:
+        print("[ERROR] No hay temporada disponible para esta liga.")
         return
 
-    latest_season = seasons_available[-1]
-    # Probamos hasta 5 temporadas hacia atrás (de la más reciente a la más
-    # vieja). Si tu plan actual restringe algunas (ej. solo te deja ver
-    # temporadas viejas), esas se saltan solas sin romper el resto —
-    # ver el manejo de errores en update_results().
-    seasons_to_use = sorted(seasons_available, reverse=True)[:5]
-
-    print(f"Liga encontrada: {league_name} (id={league_id})")
-    print(f"Temporadas disponibles: {seasons_available}")
-    print(f"Usando: {seasons_to_use}")
+    # Probamos la temporada más reciente y hasta 2 hacia atrás (3 en total)
+    seasons_to_use = [latest_season, latest_season - 1, latest_season - 2]
 
     all_results = update_results(client, LEAGUE_KEY, league_id, seasons_to_use)
     print(f"\nTotal de partidos en el historial: {len(all_results)}")
@@ -73,7 +65,6 @@ def main():
     for team, val in ranking:
         print(f"  {team}: {val:.2f} (defensa: {model['defense'][team]:.2f})")
 
-    # Prueba de predicción con el último partido real del historial
     last_match = all_results[-1]
     home, away = last_match["home_team"], last_match["away_team"]
     real_score = f"{last_match['home_goals']}-{last_match['away_goals']}"
