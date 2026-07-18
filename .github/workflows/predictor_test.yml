@@ -1,0 +1,40 @@
+name: "[PRUEBA] Ajustar modelo de predicción"
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  test-fit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Arreglar git (detached HEAD / ownership)
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git checkout -B "${{ github.ref_name }}"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install requests numpy scipy
+
+      - name: Correr prueba de ajuste del modelo
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python predictor/fit_and_test.py
+
+      - name: Commitear resultados de la prueba
+        run: |
+          git config user.name "bitacora-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add predictor/data/
+          git diff --quiet --cached || git commit -m "Prueba de ajuste del modelo de predicción"
+          git push
