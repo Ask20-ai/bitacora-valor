@@ -7,6 +7,7 @@ from api_client import HighlightlyClient, RequestBudgetExceeded, RateLimitExceed
 from leagues_store import resolve_leagues
 from analyze import team_rolling_stats, evaluate_market
 from render_html import render
+from predictor.predict import generate_predictions
 
 MARKETS = ["corners", "cards"]
 ALERTS_LOG_FILE = "data/alerts_log.json"
@@ -60,6 +61,7 @@ def main():
 
 
     all_alerts = []
+    upcoming_by_league = {}  # se reusa para generar las predicciones del modelo, mas abajo
     stats_cache = {}  # evita recalcular el mismo equipo/mercado dos veces en la misma corrida
     rate_limited = False
 
@@ -88,6 +90,7 @@ def main():
 
         matches = response.get("data", [])
         upcoming = [m for m in matches if _is_upcoming(m, now, date_to)]
+        upcoming_by_league[key] = upcoming
 
         if not upcoming:
             print(f"[INFO] '{key}': sin partidos próximos entre hoy y +{LOOKAHEAD_DAYS} días.")
@@ -132,6 +135,19 @@ def main():
                     continue
 
     print(f"\nTotal alertas encontradas: {len(all_alerts)}")
+
+    all_predictions = []
+    if not rate_limited:
+        try:
+            all_predictions = generate_predictions(client, leagues, upcoming_by_league)
+            print(f"Total predicciones generadas: {len(all_predictions)}")
+        except RateLimitExceeded as e:
+            print(f"[STOP] Predicciones cortadas por límite de cuota: {e}")
+        except Exception as e:
+            print(f"[ERROR] Generando predicciones: {e}")
+    else:
+        print("Se salteó la generación de predicciones (ya se había alcanzado el límite de cuota).")
+
     print(f"Requests usados en esta corrida: {client.requests_used}/{MAX_REQUESTS_PER_RUN}")
 
     os.makedirs("data", exist_ok=True)
@@ -146,7 +162,7 @@ def main():
     with open(ALERTS_LOG_FILE, "w", encoding="utf-8") as f:
         json.dump(log, f, indent=2, ensure_ascii=False)
 
-    html = render(all_alerts)
+    html = render(all_alerts, predictions=all_predictions)
     os.makedirs("docs", exist_ok=True)
     with open("docs/index.html", "w", encoding="utf-8") as f:
         f.write(html)
