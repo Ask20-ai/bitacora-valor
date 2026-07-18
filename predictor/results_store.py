@@ -52,7 +52,12 @@ def update_results(client, league_key: str, league_id: int, seasons: list) -> li
 
     new_records = []
     for season in seasons:
-        fixtures = client.finished_fixtures(league_id, season)
+        try:
+            fixtures = client.finished_fixtures(league_id, season)
+        except Exception as e:
+            print(f"[AVISO] No se pudo traer la temporada {season} de '{league_key}' "
+                  f"(probablemente restringida por tu plan actual): {e}")
+            continue
         for fx in fixtures:
             record = _to_record(fx)
             if record["fixture_id"] not in existing_ids:

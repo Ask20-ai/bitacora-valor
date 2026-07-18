@@ -38,7 +38,11 @@ def main():
         return
 
     latest_season = seasons_available[-1]
-    seasons_to_use = [s for s in seasons_available if s >= latest_season - 1]
+    # Probamos hasta 5 temporadas hacia atrás (de la más reciente a la más
+    # vieja). Si tu plan actual restringe algunas (ej. solo te deja ver
+    # temporadas viejas), esas se saltan solas sin romper el resto —
+    # ver el manejo de errores en update_results().
+    seasons_to_use = sorted(seasons_available, reverse=True)[:5]
 
     print(f"Liga encontrada: {league_name} (id={league_id})")
     print(f"Temporadas disponibles: {seasons_available}")
