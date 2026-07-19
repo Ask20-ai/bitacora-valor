@@ -1,5 +1,5 @@
 """
-Cliente delgado para la Highlightly Football API, vÃ­a RapidAPI
+Cliente delgado para la Highlightly Football API, vía RapidAPI
 (https://rapidapi.com/highlightly-api-highlightly-api-default/api/football-highlights-api).
 """
 import os
@@ -41,7 +41,7 @@ class HighlightlyClient:
     def _get(self, endpoint: str, params: dict = None, cache_key: str = None, cacheable: bool = False):
         """
         cacheable=True: si ya existe en disco, nunca vuelve a pedirlo a la API
-        (usar solo para datos inmutables, como estadÃ­sticas de un partido ya finalizado).
+        (usar solo para datos inmutables, como estadísticas de un partido ya finalizado).
         """
         if cacheable and cache_key:
             path = self._cache_path(cache_key)
@@ -51,7 +51,7 @@ class HighlightlyClient:
 
         if self.requests_used >= self.max_requests:
             raise RequestBudgetExceeded(
-                f"Se alcanzÃ³ el lÃ­mite de {self.max_requests} requests en esta corrida."
+                f"Se alcanzó el límite de {self.max_requests} requests en esta corrida."
             )
 
         headers = {
@@ -63,17 +63,17 @@ class HighlightlyClient:
 
         if resp.status_code == 429:
             raise RateLimitExceeded(
-                "RapidAPI devolviÃ³ 429 (Too Many Requests). Esto significa que ya se "
-                "gastÃ³ la cuota diaria gratuita, o que falta confirmar la suscripciÃ³n "
-                "al plan Basic/Free en la pestaÃ±a 'Pricing' de la API en RapidAPI. "
-                "RevisÃ¡ tu panel de RapidAPI (My Apps -> Analytics) para confirmar cuÃ¡nto "
-                "consumo llevÃ¡s hoy."
+                "RapidAPI devolvió 429 (Too Many Requests). Esto significa que ya se "
+                "gastó la cuota diaria gratuita, o que falta confirmar la suscripción "
+                "al plan Basic/Free en la pestaña 'Pricing' de la API en RapidAPI. "
+                "Revisá tu panel de RapidAPI (My Apps -> Analytics) para confirmar cuánto "
+                "consumo llevás hoy."
             )
 
         resp.raise_for_status()
         data = resp.json()
 
-        time.sleep(0.4)  # respeto bÃ¡sico del rate limit
+        time.sleep(0.4)  # respeto básico del rate limit
 
         if cacheable and cache_key:
             path = self._cache_path(cache_key)
@@ -94,21 +94,21 @@ class HighlightlyClient:
     def matches_by_league_season(self, league_id: int, season: int, page_size: int = 100,
                                   max_pages: int = 6, permanent: bool = False):
         """
-        Recorre TODAS las pÃ¡ginas de partidos de la temporada (no solo la
+        Recorre TODAS las páginas de partidos de la temporada (no solo la
         primera), porque una liga con muchos partidos ya jugados (ej. MLS a
-        mitad de temporada) puede tener mÃ¡s de 100 resultados â€” si nos
-        quedamos con la primera pÃ¡gina nada mÃ¡s, los partidos prÃ³ximos
-        pueden quedar "atrÃ¡s" de partidos viejos y nunca aparecer.
+        mitad de temporada) puede tener más de 100 resultados — si nos
+        quedamos con la primera página nada más, los partidos próximos
+        pueden quedar "atrás" de partidos viejos y nunca aparecer.
 
         max_pages=6 cubre hasta 600 partidos (de sobra para una temporada
-        completa de cualquiera de nuestras ligas). Cada pÃ¡gina es un
-        request, pero se cachea el resultado combinado entero, asÃ­ que el
-        costo solo se paga una vez por dÃ­a (o para siempre, si permanent=True).
+        completa de cualquiera de nuestras ligas). Cada página es un
+        request, pero se cachea el resultado combinado entero, así que el
+        costo solo se paga una vez por día (o para siempre, si permanent=True).
 
-        permanent=False (default): usado para partidos prÃ³ximos, que sÃ­ cambian
-        dÃ­a a dÃ­a -> cache con vencimiento diario.
+        permanent=False (default): usado para partidos próximos, que sí cambian
+        día a día -> cache con vencimiento diario.
         permanent=True: usado para temporadas ya finalizadas (historial para el
-        modelo de predicciÃ³n), que nunca cambian -> cache para siempre.
+        modelo de predicción), que nunca cambian -> cache para siempre.
         """
         if permanent:
             cache_key = f"matches_permanent_{league_id}_{season}"
@@ -128,7 +128,7 @@ class HighlightlyClient:
             page_data = response.get("data", [])
             all_data.extend(page_data)
             if len(page_data) < page_size:
-                break  # esta fue la Ãºltima pÃ¡gina
+                break  # esta fue la última página
 
         combined = {"data": all_data}
         with open(cache_path, "w", encoding="utf-8") as f:
@@ -136,8 +136,8 @@ class HighlightlyClient:
         return combined
 
     def last_five_games(self, team_id: int):
-        # Mismo criterio: un equipo casi nunca juega mÃ¡s de una vez por dÃ­a,
-        # asÃ­ que alcanza con pedir esto una vez por dÃ­a por equipo.
+        # Mismo criterio: un equipo casi nunca juega más de una vez por día,
+        # así que alcanza con pedir esto una vez por día por equipo.
         return self._get(
             "/last-five-games", {"teamId": team_id},
             cache_key=f"last5_{team_id}_{_today_str()}",
@@ -145,7 +145,7 @@ class HighlightlyClient:
         )
 
     def match_statistics(self, match_id: int):
-        # Cacheable: un partido ya jugado no cambia sus estadÃ­sticas.
+        # Cacheable: un partido ya jugado no cambia sus estadísticas.
         try:
             return self._get(
                 f"/statistics/{match_id}",
@@ -154,5 +154,5 @@ class HighlightlyClient:
             )
         except requests.HTTPError as e:
             if e.response is not None and e.response.status_code == 404:
-                return []  # sin estadÃ­sticas disponibles para este partido
+                return []  # sin estadísticas disponibles para este partido
             raise

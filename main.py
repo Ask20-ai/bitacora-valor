@@ -8,6 +8,7 @@ from leagues_store import resolve_leagues
 from analyze import team_rolling_stats, evaluate_market
 from render_html import render
 from predictor.predict import generate_predictions
+from predictor.report_generator import build_match_reports
 
 MARKETS = ["corners", "cards"]
 ALERTS_LOG_FILE = "data/alerts_log.json"
@@ -36,9 +37,9 @@ def _write_status_page(message: str):
 def _ensure_folders_with_placeholder():
     """
     Crea data/ y docs/ desde el arranque, con un mensaje de estado, para que
-    'git add data/ docs/' nunca falle (git no trackea carpetas vacÃ­as) Y para
-    que la pÃ¡gina SIEMPRE refleje la corrida mÃ¡s reciente, aunque falle antes
-    de llegar al final (asÃ­ no queda contenido viejo escondiendo un problema).
+    'git add data/ docs/' nunca falle (git no trackea carpetas vacías) Y para
+    que la página SIEMPRE refleje la corrida más reciente, aunque falle antes
+    de llegar al final (así no queda contenido viejo escondiendo un problema).
     """
     os.makedirs("data", exist_ok=True)
     _write_status_page("Corrida en curso...")
@@ -54,14 +55,14 @@ def main():
         leagues = resolve_leagues(client, LEAGUES)
     except RateLimitExceeded as e:
         print(f"[STOP] {e}")
-        _write_status_page(f"La corrida se detuvo por lÃ­mite de cuota de la API: {e}")
+        _write_status_page(f"La corrida se detuvo por límite de cuota de la API: {e}")
         return
 
     if not leagues:
-        print("No hay ligas resueltas. RevisÃ¡ tu API key y la configuraciÃ³n de LEAGUES.")
+        print("No hay ligas resueltas. Revisá tu API key y la configuración de LEAGUES.")
         _write_status_page(
             "No se pudo resolver ninguna liga en esta corrida (revisar logs del workflow "
-            "en GitHub Actions para mÃ¡s detalle)."
+            "en GitHub Actions para más detalle)."
         )
         return
 
@@ -73,8 +74,8 @@ def main():
     upcoming_by_league = {}
     rate_limited = False
 
-    # Paso 1: solo traer los partidos prÃ³ximos de cada liga (barato, ya con
-    # paginaciÃ³n completa). TodavÃ­a no gastamos presupuesto en stats por equipo.
+    # Paso 1: solo traer los partidos próximos de cada liga (barato, ya con
+    # paginación completa). Todavía no gastamos presupuesto en stats por equipo.
     for key, league_info in leagues.items():
         if rate_limited:
             break
@@ -103,24 +104,24 @@ def main():
         upcoming_by_league[key] = upcoming
 
         if not upcoming:
-            print(f"[INFO] '{key}': sin partidos prÃ³ximos entre hoy y +{LOOKAHEAD_DAYS} dÃ­as.")
+            print(f"[INFO] '{key}': sin partidos próximos entre hoy y +{LOOKAHEAD_DAYS} días.")
 
     # Paso 2: generar predicciones ANTES que las alertas. El entrenamiento del
-    # modelo es un gasto de una sola vez (despuÃ©s queda cacheado ~7 dÃ­as), asÃ­
+    # modelo es un gasto de una sola vez (después queda cacheado ~7 días), así
     # que lo priorizamos para que nunca compita por presupuesto contra el
-    # anÃ¡lisis de corners/tarjetas, que puede seguir corriendo todos los dÃ­as.
+    # análisis de corners/tarjetas, que puede seguir corriendo todos los días.
     all_predictions = []
     if not rate_limited:
         try:
             all_predictions = generate_predictions(client, leagues, upcoming_by_league)
             print(f"Total predicciones generadas: {len(all_predictions)}")
         except RateLimitExceeded as e:
-            print(f"[STOP] Predicciones cortadas por lÃ­mite de cuota: {e}")
+            print(f"[STOP] Predicciones cortadas por límite de cuota: {e}")
             rate_limited = True
         except Exception as e:
             print(f"[ERROR] Generando predicciones: {e}")
     else:
-        print("Se salteÃ³ la generaciÃ³n de predicciones (ya se habÃ­a alcanzado el lÃ­mite de cuota).")
+        print("Se salteó la generación de predicciones (ya se había alcanzado el límite de cuota).")
 
     # Paso 3: alertas de corners/tarjetas, con el presupuesto que quede.
     stats_cache = {}  # evita recalcular el mismo equipo/mercado dos veces en la misma corrida
@@ -183,7 +184,10 @@ def main():
     with open(ALERTS_LOG_FILE, "w", encoding="utf-8") as f:
         json.dump(log, f, indent=2, ensure_ascii=False)
 
-    html = render(all_alerts, predictions=all_predictions)
+    match_reports = build_match_reports(all_alerts, all_predictions)
+    print(f"Informes de partido generados: {len(match_reports)}")
+
+    html = render(all_alerts, predictions=all_predictions, match_reports=match_reports)
     os.makedirs("docs", exist_ok=True)
     with open("docs/index.html", "w", encoding="utf-8") as f:
         f.write(html)

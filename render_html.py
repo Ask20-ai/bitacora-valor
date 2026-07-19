@@ -31,6 +31,25 @@ def _alert_card(alert: dict) -> str:
     """
 
 
+def _report_card(report: dict) -> str:
+    fixture = report["fixture"]
+    best_bet_html = ""
+    if report.get("best_bet"):
+        best_bet_html = f'<div class="best-bet">🏆 Mejor apuesta sugerida: <b>{report["best_bet"]}</b></div>'
+
+    return f"""
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">{fixture['league']}</span>
+        <span class="date">{fixture['date']}</span>
+      </div>
+      <div class="match">{fixture['home']} vs {fixture['away']}</div>
+      <div class="narrative">{report['narrative']}</div>
+      {best_bet_html}
+    </div>
+    """
+
+
 def _prediction_card(pred_entry: dict) -> str:
     pred = pred_entry["prediction"]
     o = pred["outcome_probs"]
@@ -65,13 +84,20 @@ def _prediction_card(pred_entry: dict) -> str:
     """
 
 
-def render(alerts: list, predictions: list = None, generated_at: str = None, status_message: str = None) -> str:
+def render(alerts: list, predictions: list = None, match_reports: list = None,
+           generated_at: str = None, status_message: str = None) -> str:
     predictions = predictions or []
+    match_reports = match_reports or []
     generated_at = generated_at or datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
 
     status_html = ""
     if status_message:
         status_html = f'<div class="status-banner">⚠️ {status_message}</div>'
+
+    if match_reports:
+        reports_html = "\n".join(_report_card(r) for r in match_reports)
+    else:
+        reports_html = '<div class="empty">Todavía no hay informes disponibles para esta corrida.</div>'
 
     if alerts:
         alerts_html = "\n".join(_alert_card(a) for a in alerts)
@@ -113,7 +139,7 @@ def render(alerts: list, predictions: list = None, generated_at: str = None, sta
   h1 {{ font-size: 22px; margin-bottom: 4px; }}
   h2 {{ font-size: 17px; margin: 32px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }}
   .subtitle {{ color: var(--muted); font-size: 13px; margin-bottom: 12px; }}
-  .alert-card, .pred-card {{
+  .alert-card, .pred-card, .report-card {{
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -122,6 +148,17 @@ def render(alerts: list, predictions: list = None, generated_at: str = None, sta
   }}
   .alert-card {{ border-left: 3px solid var(--accent); }}
   .pred-card {{ border-left: 3px solid var(--blue); }}
+  .report-card {{ border-left: 3px solid var(--amber); }}
+  .narrative {{ font-size: 14px; line-height: 1.5; color: var(--text); margin-bottom: 10px; }}
+  .best-bet {{
+    font-size: 13px;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--amber);
+  }}
+  .best-bet b {{ color: var(--text); }}
   .alert-header {{ display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }}
   .match {{ font-size: 16px; font-weight: 600; margin-bottom: 8px; }}
   .market-tag {{
@@ -186,6 +223,10 @@ def render(alerts: list, predictions: list = None, generated_at: str = None, sta
     <h1>📋 Bitácora de Valor</h1>
     <div class="subtitle">Actualizado {generated_at}</div>
     {status_html}
+
+    <h2>🧾 Informe del partido</h2>
+    <div class="subtitle">Lectura combinada del modelo + las alertas, con la mejor apuesta sugerida</div>
+    {reports_html}
 
     <h2>🎯 Alertas de valor (corners y tarjetas)</h2>
     <div class="subtitle">Doble confirmación: ataque de un equipo + defensa floja del rival</div>
