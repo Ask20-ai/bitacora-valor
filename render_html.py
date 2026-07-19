@@ -23,10 +23,10 @@ def _alert_card(alert: dict) -> str:
         <span class="date">{fixture['date']}</span>
       </div>
       <div class="match">{fixture['home']} vs {fixture['away']}</div>
-      <div class="market-tag">{market_label} — línea de referencia {result['line_reference']}</div>
-      <div class="projected">Proyección combinada: <b>{result['projected_total']}</b></div>
+      <div class="market-tag">{market_label} â€” lÃ­nea de referencia {result['line_reference']}</div>
+      <div class="projected">ProyecciÃ³n combinada: <b>{result['projected_total']}</b></div>
       {signals_html}
-      <div class="sample">Muestra: local {result['sample_sizes']['home']} partidos · visitante {result['sample_sizes']['away']} partidos</div>
+      <div class="sample">Muestra: local {result['sample_sizes']['home']} partidos Â· visitante {result['sample_sizes']['away']} partidos</div>
     </div>
     """
 
@@ -72,19 +72,19 @@ def render(alerts: list, predictions: list = None, generated_at: str = None) -> 
     if alerts:
         alerts_html = "\n".join(_alert_card(a) for a in alerts)
     else:
-        alerts_html = '<div class="empty">No se encontraron partidos con doble confirmación en esta corrida.</div>'
+        alerts_html = '<div class="empty">No se encontraron partidos con doble confirmaciÃ³n en esta corrida.</div>'
 
     if predictions:
         predictions_html = "\n".join(_prediction_card(p) for p in predictions)
     else:
-        predictions_html = '<div class="empty">Todavía no hay predicciones disponibles (el modelo puede estar entrenándose, o falta historial suficiente).</div>'
+        predictions_html = '<div class="empty">TodavÃ­a no hay predicciones disponibles (el modelo puede estar entrenÃ¡ndose, o falta historial suficiente).</div>'
 
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitácora de Valor</title>
+<title>BitÃ¡cora de Valor</title>
 <style>
   :root {{
     --bg: #0f1115;
@@ -170,18 +170,18 @@ def render(alerts: list, predictions: list = None, generated_at: str = None) -> 
 </head>
 <body>
   <div class="wrap">
-    <h1>📋 Bitácora de Valor</h1>
+    <h1>ðŸ“‹ BitÃ¡cora de Valor</h1>
     <div class="subtitle">Actualizado {generated_at}</div>
 
-    <h2>🎯 Alertas de valor (corners y tarjetas)</h2>
-    <div class="subtitle">Doble confirmación: ataque de un equipo + defensa floja del rival</div>
+    <h2>ðŸŽ¯ Alertas de valor (corners y tarjetas)</h2>
+    <div class="subtitle">Doble confirmaciÃ³n: ataque de un equipo + defensa floja del rival</div>
     {alerts_html}
 
-    <h2>📊 Predicciones (modelo Dixon-Coles)</h2>
-    <div class="subtitle">Probabilidades 1X2 y marcadores más probables, basados en historial de goles</div>
+    <h2>ðŸ“Š Predicciones (modelo Dixon-Coles)</h2>
+    <div class="subtitle">Probabilidades 1X2 y marcadores mÃ¡s probables, basados en historial de goles</div>
     {predictions_html}
 
-    <footer>Generado automáticamente vía GitHub Actions + Highlightly</footer>
+    <footer>Generado automÃ¡ticamente vÃ­a GitHub Actions + Highlightly</footer>
   </div>
 </body>
 </html>
