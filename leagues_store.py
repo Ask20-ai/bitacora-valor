@@ -62,6 +62,11 @@ def resolve_leagues(client, leagues_config: list) -> dict:
             raise
         best = _best_match(results, league["search"], league.get("country"))
         if not best:
+            print(f"[DEBUG] Búsqueda '{league['search']}' (país: {league.get('country')}) "
+                  f"devolvió {len(results)} resultado(s) crudos de la API.")
+            if results:
+                nombres = [r.get("name") for r in results[:5]]
+                print(f"[DEBUG] Primeros nombres devueltos: {nombres}")
             print(f"[AVISO] No se encontró la liga '{league['search']}' "
                   f"(país: {league.get('country')}). Revisala manualmente en Highlightly.")
             continue

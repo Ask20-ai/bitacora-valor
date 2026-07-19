@@ -1,9 +1,9 @@
 """
-Orquesta el modelo de predicciÃ³n dentro del flujo principal:
-- Reentrena el modelo de cada liga una vez por semana (no hace falta mÃ¡s
-  seguido; los ratings de los equipos no cambian de un dÃ­a para el otro).
-- Genera predicciones (1X2 + marcadores mÃ¡s probables) para los partidos
-  prÃ³ximos de cada liga activa.
+Orquesta el modelo de predicción dentro del flujo principal:
+- Reentrena el modelo de cada liga una vez por semana (no hace falta más
+  seguido; los ratings de los equipos no cambian de un día para el otro).
+- Genera predicciones (1X2 + marcadores más probables) para los partidos
+  próximos de cada liga activa.
 """
 import os
 import json
@@ -44,20 +44,20 @@ def _save_model(league_key: str, model: dict):
 
 def get_or_refit_model(client, league_key: str, league_id: int, latest_season: int):
     """
-    Devuelve un modelo ajustado para la liga, reusando el que ya estÃ© guardado
+    Devuelve un modelo ajustado para la liga, reusando el que ya esté guardado
     si tiene menos de MODEL_MAX_AGE_DAYS, o reentrenando si no.
     """
     model = _load_model_if_fresh(league_key)
     if model is not None:
-        return model, False  # False = no se reentrenÃ³ esta vez
+        return model, False  # False = no se reentrenó esta vez
 
-    print(f"[INFO] '{league_key}': reentrenando el modelo (no habÃ­a uno, o venciÃ³)...")
+    print(f"[INFO] '{league_key}': reentrenando el modelo (no había uno, o venció)...")
     seasons = [latest_season - i for i in range(SEASONS_BACK)]
     results = update_results(client, league_key, league_id, seasons)
 
     if len(results) < 20:
-        print(f"[AVISO] '{league_key}': muy pocos partidos histÃ³ricos ({len(results)}) "
-              "para ajustar el modelo todavÃ­a.")
+        print(f"[AVISO] '{league_key}': muy pocos partidos históricos ({len(results)}) "
+              "para ajustar el modelo todavía.")
         return None, True
 
     model = fit_dixon_coles(results)
@@ -68,7 +68,7 @@ def get_or_refit_model(client, league_key: str, league_id: int, latest_season: i
 def generate_predictions(client, leagues: dict, upcoming_by_league: dict) -> list:
     """
     leagues: el mismo dict que devuelve resolve_leagues() (id, name, latest_season por liga)
-    upcoming_by_league: {league_key: [fixtures prÃ³ximos ya filtrados]}
+    upcoming_by_league: {league_key: [fixtures próximos ya filtrados]}
     Devuelve una lista de predicciones listas para el HTML.
     """
     predictions = []

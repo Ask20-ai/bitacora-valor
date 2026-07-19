@@ -15,7 +15,7 @@ LEAGUES = [
     # {"key": "bundesliga",      "search": "Bundesliga",      "country": "Germany"},
     # {"key": "premier_league",  "search": "Premier League",  "country": "England"},
     # {"key": "champions",       "search": "UEFA Champions League", "country": None},
-    {"key": "mls",             "search": "MLS",             "country": "USA"},
+    {"key": "mls",             "search": "Major League Soccer", "country": "USA"},
     # {"key": "liga_pro_ec",     "search": "Liga Pro",        "country": "Ecuador"},
     # {"key": "liga_mx",         "search": "Liga MX",         "country": "Mexico"},
     # {"key": "eliteserien",     "search": "Eliteserien",     "country": "Norway"},

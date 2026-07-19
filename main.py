@@ -27,17 +27,21 @@ def _is_upcoming(match: dict, date_from: datetime, date_to: datetime) -> bool:
     return date_from <= match_date <= date_to
 
 
+def _write_status_page(message: str):
+    os.makedirs("docs", exist_ok=True)
+    with open("docs/index.html", "w", encoding="utf-8") as f:
+        f.write(render([], predictions=[], status_message=message))
+
+
 def _ensure_folders_with_placeholder():
     """
-    Crea data/ y docs/ con contenido mÃ­nimo desde el arranque, para que
-    'git add data/ docs/' nunca falle (git no trackea carpetas vacÃ­as) aunque
-    el script corte antes de tiempo (ej. por un 429 de la API).
+    Crea data/ y docs/ desde el arranque, con un mensaje de estado, para que
+    'git add data/ docs/' nunca falle (git no trackea carpetas vacías) Y para
+    que la página SIEMPRE refleje la corrida más reciente, aunque falle antes
+    de llegar al final (así no queda contenido viejo escondiendo un problema).
     """
     os.makedirs("data", exist_ok=True)
-    os.makedirs("docs", exist_ok=True)
-    if not os.path.exists("docs/index.html"):
-        with open("docs/index.html", "w", encoding="utf-8") as f:
-            f.write(render([]))
+    _write_status_page("Corrida en curso...")
 
 
 def main():
@@ -50,10 +54,15 @@ def main():
         leagues = resolve_leagues(client, LEAGUES)
     except RateLimitExceeded as e:
         print(f"[STOP] {e}")
+        _write_status_page(f"La corrida se detuvo por límite de cuota de la API: {e}")
         return
 
     if not leagues:
-        print("No hay ligas resueltas. RevisÃ¡ tu API key y la configuraciÃ³n de LEAGUES.")
+        print("No hay ligas resueltas. Revisá tu API key y la configuración de LEAGUES.")
+        _write_status_page(
+            "No se pudo resolver ninguna liga en esta corrida (revisar logs del workflow "
+            "en GitHub Actions para más detalle)."
+        )
         return
 
     now = datetime.now(timezone.utc)
@@ -93,7 +102,7 @@ def main():
         upcoming_by_league[key] = upcoming
 
         if not upcoming:
-            print(f"[INFO] '{key}': sin partidos prÃ³ximos entre hoy y +{LOOKAHEAD_DAYS} dÃ­as.")
+            print(f"[INFO] '{key}': sin partidos próximos entre hoy y +{LOOKAHEAD_DAYS} días.")
             continue
 
         for match in upcoming:
@@ -142,11 +151,11 @@ def main():
             all_predictions = generate_predictions(client, leagues, upcoming_by_league)
             print(f"Total predicciones generadas: {len(all_predictions)}")
         except RateLimitExceeded as e:
-            print(f"[STOP] Predicciones cortadas por lÃ­mite de cuota: {e}")
+            print(f"[STOP] Predicciones cortadas por límite de cuota: {e}")
         except Exception as e:
             print(f"[ERROR] Generando predicciones: {e}")
     else:
-        print("Se salteÃ³ la generaciÃ³n de predicciones (ya se habÃ­a alcanzado el lÃ­mite de cuota).")
+        print("Se salteó la generación de predicciones (ya se había alcanzado el límite de cuota).")
 
     print(f"Requests usados en esta corrida: {client.requests_used}/{MAX_REQUESTS_PER_RUN}")
 
