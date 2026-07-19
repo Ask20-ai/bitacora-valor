@@ -10,5 +10,284 @@
   {
     "run_at": "2026-07-19T12:07:02.974712+00:00",
     "alerts": []
+  },
+  {
+    "run_at": "2026-07-19T12:44:59.102426+00:00",
+    "alerts": [
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-26 02:30",
+          "home": "Los Angeles FC",
+          "away": "Sporting Kansas City"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 3.45,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.2,
+              "opponent_concede_avg": 2.25
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-26 00:30",
+          "home": "St. Louis City SC",
+          "away": "Colorado Rapids"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 5.6,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.6,
+              "opponent_concede_avg": 3.25
+            },
+            {
+              "side": "visitante",
+              "attack_avg": 3,
+              "opponent_concede_avg": 2.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-26 00:30",
+          "home": "Minnesota United",
+          "away": "Vancouver Whitecaps"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 6.27,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 3.67,
+              "opponent_concede_avg": 2.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 3
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 23:30",
+          "home": "Orlando City",
+          "away": "Nashville SC"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 10.4,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 5.6,
+              "opponent_concede_avg": 7.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 23:30",
+          "home": "Orlando City",
+          "away": "Nashville SC"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.2,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.4,
+              "opponent_concede_avg": 2.2
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-23 02:30",
+          "home": "Los Angeles Galaxy",
+          "away": "St. Louis City SC"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.85,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.25,
+              "opponent_concede_avg": 2.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-23 02:30",
+          "home": "Portland Timbers",
+          "away": "FC Dallas"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 10.2,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 6,
+              "opponent_concede_avg": 7.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-23 02:30",
+          "home": "Portland Timbers",
+          "away": "FC Dallas"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 3.6,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.6,
+              "opponent_concede_avg": 3.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-23 02:30",
+          "home": "San Jose Earthquakes",
+          "away": "Orlando City"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 13.05,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 8.25,
+              "opponent_concede_avg": 7.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-23 02:30",
+          "home": "San Jose Earthquakes",
+          "away": "Orlando City"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.8,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 3,
+              "opponent_concede_avg": 2.2
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-23 00:30",
+          "home": "Sporting Kansas City",
+          "away": "Minnesota United"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.8,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.2,
+              "opponent_concede_avg": 2.4
+            },
+            {
+              "side": "visitante",
+              "attack_avg": 2.6,
+              "opponent_concede_avg": 2.2
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      }
+    ]
   }
 ]
