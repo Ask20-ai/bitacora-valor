@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitácora de Valor — Alertas</title>
+<title>Bitácora de Valor</title>
 <style>
   :root {
     --bg: #0f1115;
@@ -13,6 +13,8 @@
     --muted: #9198a8;
     --accent: #4ade80;
     --accent-soft: rgba(74, 222, 128, 0.12);
+    --blue: #60a5fa;
+    --amber: #fbbf24;
   }
   * { box-sizing: border-box; }
   body {
@@ -24,15 +26,28 @@
   }
   .wrap { max-width: 720px; margin: 0 auto; }
   h1 { font-size: 22px; margin-bottom: 4px; }
-  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
-  .alert-card {
+  h2 { font-size: 17px; margin: 32px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .alert-card, .pred-card, .report-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
     border-radius: 10px;
     padding: 16px 18px;
     margin-bottom: 14px;
   }
+  .alert-card { border-left: 3px solid var(--accent); }
+  .pred-card { border-left: 3px solid var(--blue); }
+  .report-card { border-left: 3px solid var(--amber); }
+  .narrative { font-size: 14px; line-height: 1.5; color: var(--text); margin-bottom: 10px; }
+  .best-bet {
+    font-size: 13px;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--amber);
+  }
+  .best-bet b { color: var(--text); }
   .alert-header { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
   .match { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
   .market-tag {
@@ -51,16 +66,1350 @@
   .signal .side { color: var(--accent); font-weight: 700; font-size: 11px; margin-right: 4px; }
   .signal b { color: var(--text); }
   .sample { font-size: 11px; color: var(--muted); margin-top: 8px; opacity: 0.7; }
-  .empty { color: var(--muted); font-style: italic; padding: 24px 0; }
+  .expected-goals { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .expected-goals b { color: var(--text); }
+  .outcome-bar {
+    display: flex;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .outcome-seg { display: flex; align-items: center; justify-content: center; min-width: 40px; }
+  .outcome-seg.home { background: var(--accent); color: #06210f; }
+  .outcome-seg.draw { background: var(--muted); color: #06210f; }
+  .outcome-seg.away { background: var(--blue); color: #06210f; }
+  .scores-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .score-chip {
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 56px;
+  }
+  .score-val { font-size: 13px; font-weight: 700; color: var(--amber); }
+  .score-prob { font-size: 11px; color: var(--muted); }
+  .empty { color: var(--muted); font-style: italic; padding: 16px 0; }
+  .status-banner {
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    color: var(--amber);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
   footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 40px; }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>📋 Bitácora de Valor — Alertas</h1>
-    <div class="subtitle">Corners y tarjetas · doble confirmación (ataque + defensa) · actualizado 2026-07-17 23:12 UTC</div>
-    <div class="empty">No se encontraron partidos con doble confirmación en esta corrida.</div>
-    <footer>Generado automáticamente vía GitHub Actions + API-Football</footer>
+    <h1>📋 Bitácora de Valor</h1>
+    <div class="subtitle">Actualizado 2026-07-19 21:21 UTC</div>
+    
+
+    <h2>🧾 Informe del partido</h2>
+    <div class="subtitle">Lectura combinada del modelo + las alertas, con la mejor apuesta sugerida</div>
+    
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">Los Angeles FC vs Sporting Kansas City</div>
+      <div class="narrative">Según el modelo, Los Angeles FC aparece como favorito claro (81%). Se esperan 3.01 goles de Los Angeles FC y 0.8 de Sporting Kansas City; el marcador más probable es 3-0 (10%). En tarjetas, hay doble confirmación del lado de visitante: la proyección combinada (3.45) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (3.45 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">St. Louis City SC vs Colorado Rapids</div>
+      <div class="narrative">Según el modelo, St. Louis City SC es el resultado más probable, pero sin ser un partido cerrado (43%). Se esperan 1.59 goles de St. Louis City SC y 1.35 de Colorado Rapids; el marcador más probable es 1-1 (11%). En tarjetas, hay doble confirmación del lado de local y visitante: la proyección combinada (5.6) queda por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (5.6 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">Minnesota United vs Vancouver Whitecaps</div>
+      <div class="narrative">Según el modelo, Vancouver Whitecaps es el resultado más probable, pero sin ser un partido cerrado (48%). Se esperan 1.1 goles de Minnesota United y 1.55 de Vancouver Whitecaps; el marcador más probable es 1-1 (12%). En tarjetas, hay doble confirmación del lado de visitante: la proyección combinada (6.27) queda por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (6.27 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Orlando City vs Nashville SC</div>
+      <div class="narrative">Según el modelo, Nashville SC es el resultado más probable, pero sin ser un partido cerrado (54%). Se esperan 1.43 goles de Orlando City y 2.14 de Nashville SC; el marcador más probable es 1-2 (9%). En corners, hay doble confirmación del lado de visitante: la proyección combinada (10.4) queda por encima de la línea de referencia (9.5). En tarjetas, hay doble confirmación del lado de visitante: la proyección combinada (4.2) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de corners (10.4 vs. línea 9.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">DC United vs Toronto FC</div>
+      <div class="narrative">Según el modelo, es un partido muy parejo, sin un favorito definido. Se esperan 1.18 goles de DC United y 1.26 de Toronto FC; el marcador más probable es 1-1 (13%). En corners, hay doble confirmación del lado de local: la proyección combinada (9.0) queda apenas por encima de la línea de referencia (9.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de corners (9.0 vs. línea 9.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Montréal Impact vs Inter Miami</div>
+      <div class="narrative">Según el modelo, Inter Miami aparece como favorito claro (66%). Se esperan 1.42 goles de Montréal Impact y 2.81 de Inter Miami; el marcador más probable es 1-2 (8%). En tarjetas, hay doble confirmación del lado de local: la proyección combinada (6.4) queda por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (6.4 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 22:30</span>
+      </div>
+      <div class="match">New York Red Bulls vs Charlotte</div>
+      <div class="narrative">Según el modelo, es un partido muy parejo, sin un favorito definido. Se esperan 1.54 goles de New York Red Bulls y 1.47 de Charlotte; el marcador más probable es 1-1 (11%). En tarjetas, hay doble confirmación del lado de local: la proyección combinada (4.8) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (4.8 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Los Angeles Galaxy vs St. Louis City SC</div>
+      <div class="narrative">Según el modelo, Los Angeles Galaxy es el resultado más probable, pero sin ser un partido cerrado (44%). Se esperan 1.62 goles de Los Angeles Galaxy y 1.35 de St. Louis City SC; el marcador más probable es 1-1 (11%). En tarjetas, hay doble confirmación del lado de local: la proyección combinada (4.85) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (4.85 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Portland Timbers vs FC Dallas</div>
+      <div class="narrative">Según el modelo, Portland Timbers es el resultado más probable, pero sin ser un partido cerrado (41%). Se esperan 1.67 goles de Portland Timbers y 1.57 de FC Dallas; el marcador más probable es 1-1 (10%). En corners, hay doble confirmación del lado de local: la proyección combinada (10.2) queda por encima de la línea de referencia (9.5). En tarjetas, hay doble confirmación del lado de visitante: la proyección combinada (3.6) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de corners (10.2 vs. línea 9.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">San Jose Earthquakes vs Orlando City</div>
+      <div class="narrative">Según el modelo, San Jose Earthquakes aparece como favorito claro (71%). Se esperan 3.1 goles de San Jose Earthquakes y 1.42 de Orlando City; el marcador más probable es 3-1 (8%). En corners, hay doble confirmación del lado de local: la proyección combinada (13.05) queda con bastante margen de la línea de referencia (9.5). En tarjetas, hay doble confirmación del lado de local: la proyección combinada (4.8) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de corners (13.05 vs. línea 9.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Nashville SC vs Montréal Impact</div>
+      <div class="narrative">Según el modelo, Nashville SC aparece como favorito claro (74%). Se esperan 2.44 goles de Nashville SC y 0.79 de Montréal Impact; el marcador más probable es 2-0 (12%). En corners, hay doble confirmación del lado de visitante: la proyección combinada (12.6) queda con bastante margen de la línea de referencia (9.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de corners (12.6 vs. línea 9.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Sporting Kansas City vs Minnesota United</div>
+      <div class="narrative">Según el modelo, Minnesota United es el resultado más probable, pero sin ser un partido cerrado (54%). Se esperan 1.17 goles de Sporting Kansas City y 1.88 de Minnesota United; el marcador más probable es 1-1 (11%). En tarjetas, hay doble confirmación del lado de local y visitante: la proyección combinada (4.8) queda apenas por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (4.8 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:15</span>
+      </div>
+      <div class="match">Charlotte vs Atlanta United FC</div>
+      <div class="narrative">Según el modelo, Charlotte aparece como favorito claro (62%). Se esperan 1.89 goles de Charlotte y 0.84 de Atlanta United FC; el marcador más probable es 1-0 (12%). En tarjetas, hay doble confirmación del lado de visitante: la proyección combinada (5.0) queda por encima de la línea de referencia (4.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de tarjetas (5.0 vs. línea 4.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Inter Miami vs Chicago Fire</div>
+      <div class="narrative">Según el modelo, Inter Miami aparece como favorito claro (64%). Se esperan 3.08 goles de Inter Miami y 1.75 de Chicago Fire; el marcador más probable es 3-1 (7%). En corners, hay doble confirmación del lado de local: la proyección combinada (11.4) queda por encima de la línea de referencia (9.5).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Over de corners (11.4 vs. línea 9.5)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">San Jose Earthquakes vs Los Angeles Galaxy</div>
+      <div class="narrative">Según el modelo, San Jose Earthquakes aparece como favorito claro (67%). Se esperan 2.56 goles de San Jose Earthquakes y 1.19 de Los Angeles Galaxy; el marcador más probable es 2-1 (9%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>San Jose Earthquakes (67%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">Portland Timbers vs Real Salt Lake</div>
+      <div class="narrative">Según el modelo, Portland Timbers es el resultado más probable, pero sin ser un partido cerrado (44%). Se esperan 1.54 goles de Portland Timbers y 1.24 de Real Salt Lake; el marcador más probable es 1-1 (12%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Portland Timbers (44%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 01:30</span>
+      </div>
+      <div class="match">San Diego vs FC Dallas</div>
+      <div class="narrative">Según el modelo, San Diego es el resultado más probable, pero sin ser un partido cerrado (54%). Se esperan 2.19 goles de San Diego y 1.46 de FC Dallas; el marcador más probable es 2-1 (9%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>San Diego (54%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">Houston Dynamo vs Austin</div>
+      <div class="narrative">Según el modelo, Houston Dynamo es el resultado más probable, pero sin ser un partido cerrado (51%). Se esperan 1.65 goles de Houston Dynamo y 1.06 de Austin; el marcador más probable es 1-1 (12%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Houston Dynamo (51%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">New York City FC vs Chicago Fire</div>
+      <div class="narrative">Según el modelo, New York City FC es el resultado más probable, pero sin ser un partido cerrado (46%). Se esperan 1.78 goles de New York City FC y 1.4 de Chicago Fire; el marcador más probable es 1-1 (10%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>New York City FC (46%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Philadelphia Union vs Seattle Sounders</div>
+      <div class="narrative">Según el modelo, es un partido muy parejo, sin un favorito definido. Se esperan 1.37 goles de Philadelphia Union y 1.3 de Seattle Sounders; el marcador más probable es 1-1 (12%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Philadelphia Union (39%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">New England Revolution vs Atlanta United FC</div>
+      <div class="narrative">Según el modelo, New England Revolution aparece como favorito claro (58%). Se esperan 1.7 goles de New England Revolution y 0.83 de Atlanta United FC; el marcador más probable es 1-0 (13%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>New England Revolution (58%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:00</span>
+      </div>
+      <div class="match">Columbus Crew vs FC Cincinnati</div>
+      <div class="narrative">Según el modelo, Columbus Crew es el resultado más probable, pero sin ser un partido cerrado (47%). Se esperan 1.92 goles de Columbus Crew y 1.52 de FC Cincinnati; el marcador más probable es 1-1 (9%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Columbus Crew (47%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Los Angeles FC vs Real Salt Lake</div>
+      <div class="narrative">Según el modelo, Los Angeles FC aparece como favorito claro (61%). Se esperan 1.91 goles de Los Angeles FC y 0.89 de Real Salt Lake; el marcador más probable es 1-0 (11%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Los Angeles FC (61%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 01:30</span>
+      </div>
+      <div class="match">Colorado Rapids vs San Diego</div>
+      <div class="narrative">Según el modelo, San Diego es el resultado más probable, pero sin ser un partido cerrado (44%). Se esperan 1.57 goles de Colorado Rapids y 1.8 de San Diego; el marcador más probable es 1-1 (10%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>San Diego (44%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Austin vs Seattle Sounders</div>
+      <div class="narrative">Según el modelo, Seattle Sounders es el resultado más probable, pero sin ser un partido cerrado (46%). Se esperan 1.14 goles de Austin y 1.54 de Seattle Sounders; el marcador más probable es 1-1 (12%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Seattle Sounders (46%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Houston Dynamo vs DC United</div>
+      <div class="narrative">Según el modelo, Houston Dynamo aparece como favorito claro (57%). Se esperan 1.79 goles de Houston Dynamo y 0.95 de DC United; el marcador más probable es 1-0 (11%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Houston Dynamo (57%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">FC Cincinnati vs Vancouver Whitecaps</div>
+      <div class="narrative">Según el modelo, Vancouver Whitecaps aparece como favorito claro (57%). Se esperan 1.29 goles de FC Cincinnati y 2.15 de Vancouver Whitecaps; el marcador más probable es 1-2 (10%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Vancouver Whitecaps (57%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">New England Revolution vs Toronto FC</div>
+      <div class="narrative">Según el modelo, New England Revolution es el resultado más probable, pero sin ser un partido cerrado (48%). Se esperan 1.49 goles de New England Revolution y 1.0 de Toronto FC; el marcador más probable es 1-1 (12%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>New England Revolution (48%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Philadelphia Union vs New York Red Bulls</div>
+      <div class="narrative">Según el modelo, Philadelphia Union es el resultado más probable, pero sin ser un partido cerrado (52%). Se esperan 1.8 goles de Philadelphia Union y 1.16 de New York Red Bulls; el marcador más probable es 1-1 (11%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Philadelphia Union (52%)</b></div>
+    </div>
+    
+
+    <div class="report-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Columbus Crew vs New York City FC</div>
+      <div class="narrative">Según el modelo, Columbus Crew es el resultado más probable, pero sin ser un partido cerrado (40%). Se esperan 1.44 goles de Columbus Crew y 1.31 de New York City FC; el marcador más probable es 1-1 (12%).</div>
+      <div class="best-bet">🏆 Mejor apuesta sugerida: <b>Columbus Crew (40%)</b></div>
+    </div>
+    
+
+    <h2>🎯 Alertas de valor (corners y tarjetas)</h2>
+    <div class="subtitle">Doble confirmación: ataque de un equipo + defensa floja del rival</div>
+    
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">Los Angeles FC vs Sporting Kansas City</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>3.45</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>2.2</b> vs. rival que concede <b>2.25</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 4 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">St. Louis City SC vs Colorado Rapids</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>5.6</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>2.6</b> vs. rival que concede <b>3.25</b> de promedio
+        </div>
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>3</b> vs. rival que concede <b>2.4</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 4 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">Minnesota United vs Vancouver Whitecaps</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>6.27</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>3.67</b> vs. rival que concede <b>2.4</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 3 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Orlando City vs Nashville SC</div>
+      <div class="market-tag">Corners — línea de referencia 9.5</div>
+      <div class="projected">Proyección combinada: <b>10.4</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>5.6</b> vs. rival que concede <b>7.6</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Orlando City vs Nashville SC</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>4.2</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>2.4</b> vs. rival que concede <b>2.2</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">DC United vs Toronto FC</div>
+      <div class="market-tag">Corners — línea de referencia 9.5</div>
+      <div class="projected">Proyección combinada: <b>9.0</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>5.6</b> vs. rival que concede <b>5.8</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Montréal Impact vs Inter Miami</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>6.4</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>3</b> vs. rival que concede <b>2.2</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 22:30</span>
+      </div>
+      <div class="match">New York Red Bulls vs Charlotte</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>4.8</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>2.4</b> vs. rival que concede <b>3.6</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Los Angeles Galaxy vs St. Louis City SC</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>4.85</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>2.25</b> vs. rival que concede <b>2.4</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 4 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Portland Timbers vs FC Dallas</div>
+      <div class="market-tag">Corners — línea de referencia 9.5</div>
+      <div class="projected">Proyección combinada: <b>10.2</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>6</b> vs. rival que concede <b>7.6</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Portland Timbers vs FC Dallas</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>3.6</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>2.6</b> vs. rival que concede <b>3.4</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">San Jose Earthquakes vs Orlando City</div>
+      <div class="market-tag">Corners — línea de referencia 9.5</div>
+      <div class="projected">Proyección combinada: <b>13.05</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>8.25</b> vs. rival que concede <b>7.6</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 4 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">San Jose Earthquakes vs Orlando City</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>4.8</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>3</b> vs. rival que concede <b>2.2</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 4 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Nashville SC vs Montréal Impact</div>
+      <div class="market-tag">Corners — línea de referencia 9.5</div>
+      <div class="projected">Proyección combinada: <b>12.6</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>7</b> vs. rival que concede <b>5.8</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Sporting Kansas City vs Minnesota United</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>4.8</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>2.2</b> vs. rival que concede <b>2.4</b> de promedio
+        </div>
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>2.6</b> vs. rival que concede <b>2.2</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:15</span>
+      </div>
+      <div class="match">Charlotte vs Atlanta United FC</div>
+      <div class="market-tag">Tarjetas — línea de referencia 4.5</div>
+      <div class="projected">Proyección combinada: <b>5.0</b></div>
+      
+        <div class="signal">
+          <span class="side">VISITANTE</span>
+          ataca con promedio <b>2.6</b> vs. rival que concede <b>3.6</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <div class="alert-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Inter Miami vs Chicago Fire</div>
+      <div class="market-tag">Corners — línea de referencia 9.5</div>
+      <div class="projected">Proyección combinada: <b>11.4</b></div>
+      
+        <div class="signal">
+          <span class="side">LOCAL</span>
+          ataca con promedio <b>6.8</b> vs. rival que concede <b>7.6</b> de promedio
+        </div>
+      <div class="sample">Muestra: local 5 partidos · visitante 5 partidos</div>
+    </div>
+    
+
+    <h2>📊 Predicciones (modelo Dixon-Coles)</h2>
+    <div class="subtitle">Probabilidades 1X2 y marcadores más probables, basados en historial de goles</div>
+    
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">San Jose Earthquakes vs Los Angeles Galaxy</div>
+      <div class="expected-goals">Goles esperados: <b>2.56</b> - <b>1.19</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.6684">
+          <span>Local 67%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.174">
+          <span>Empate 17%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1576">
+          <span>Visitante 16%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.2%</span></div><div class="score-chip"><span class="score-val">3-1</span><span class="score-prob">7.8%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">7.7%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">Portland Timbers vs Real Salt Lake</div>
+      <div class="expected-goals">Goles esperados: <b>1.54</b> - <b>1.24</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4416">
+          <span>Local 44%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2527">
+          <span>Empate 25%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3057">
+          <span>Visitante 31%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.9%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">9.4%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.1%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 02:30</span>
+      </div>
+      <div class="match">Los Angeles FC vs Sporting Kansas City</div>
+      <div class="expected-goals">Goles esperados: <b>3.01</b> - <b>0.8</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.8132">
+          <span>Local 81%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.119">
+          <span>Empate 12%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.0678">
+          <span>Visitante 7%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">3-0</span><span class="score-prob">10.1%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">10.1%</span></div><div class="score-chip"><span class="score-val">3-1</span><span class="score-prob">8.1%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 01:30</span>
+      </div>
+      <div class="match">San Diego vs FC Dallas</div>
+      <div class="expected-goals">Goles esperados: <b>2.19</b> - <b>1.46</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.5394">
+          <span>Local 54%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2065">
+          <span>Empate 21%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.2541">
+          <span>Visitante 25%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.1%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">8.4%</span></div><div class="score-chip"><span class="score-val">2-2</span><span class="score-prob">6.7%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">St. Louis City SC vs Colorado Rapids</div>
+      <div class="expected-goals">Goles esperados: <b>1.59</b> - <b>1.35</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4291">
+          <span>Local 43%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2466">
+          <span>Empate 25%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3243">
+          <span>Visitante 32%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.5%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.0%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">8.3%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">Minnesota United vs Vancouver Whitecaps</div>
+      <div class="expected-goals">Goles esperados: <b>1.1</b> - <b>1.55</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.2691">
+          <span>Local 27%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2559">
+          <span>Empate 26%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.475">
+          <span>Visitante 48%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">12.2%</span></div><div class="score-chip"><span class="score-val">0-1</span><span class="score-prob">10.8%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">9.3%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-26 00:30</span>
+      </div>
+      <div class="match">Houston Dynamo vs Austin</div>
+      <div class="expected-goals">Goles esperados: <b>1.65</b> - <b>1.06</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.509">
+          <span>Local 51%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2474">
+          <span>Empate 25%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.2437">
+          <span>Visitante 24%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.8%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">10.8%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.6%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Orlando City vs Nashville SC</div>
+      <div class="expected-goals">Goles esperados: <b>1.43</b> - <b>2.14</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.2531">
+          <span>Local 25%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2092">
+          <span>Empate 21%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.5377">
+          <span>Visitante 54%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">9.2%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">8.7%</span></div><div class="score-chip"><span class="score-val">2-2</span><span class="score-prob">6.6%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">New York City FC vs Chicago Fire</div>
+      <div class="expected-goals">Goles esperados: <b>1.78</b> - <b>1.4</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4639">
+          <span>Local 46%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.233">
+          <span>Empate 23%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.303">
+          <span>Visitante 30%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">10.5%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.2%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">7.3%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">DC United vs Toronto FC</div>
+      <div class="expected-goals">Goles esperados: <b>1.18</b> - <b>1.26</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.341">
+          <span>Local 34%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2764">
+          <span>Empate 28%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3827">
+          <span>Visitante 38%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">13.1%</span></div><div class="score-chip"><span class="score-val">0-1</span><span class="score-prob">10.9%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">10.1%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Montréal Impact vs Inter Miami</div>
+      <div class="expected-goals">Goles esperados: <b>1.42</b> - <b>2.81</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.1717">
+          <span>Local 17%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.1655">
+          <span>Empate 17%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.6628">
+          <span>Visitante 66%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">8.2%</span></div><div class="score-chip"><span class="score-val">1-3</span><span class="score-prob">7.7%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">5.9%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">Philadelphia Union vs Seattle Sounders</div>
+      <div class="expected-goals">Goles esperados: <b>1.37</b> - <b>1.3</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.3853">
+          <span>Local 39%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2625">
+          <span>Empate 26%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3521">
+          <span>Visitante 35%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">12.5%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">9.4%</span></div><div class="score-chip"><span class="score-val">0-1</span><span class="score-prob">8.9%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:30</span>
+      </div>
+      <div class="match">New England Revolution vs Atlanta United FC</div>
+      <div class="expected-goals">Goles esperados: <b>1.7</b> - <b>0.83</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.5795">
+          <span>Local 58%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2408">
+          <span>Empate 24%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1797">
+          <span>Visitante 18%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">13.5%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">11.5%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.3%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 23:00</span>
+      </div>
+      <div class="match">Columbus Crew vs FC Cincinnati</div>
+      <div class="expected-goals">Goles esperados: <b>1.92</b> - <b>1.52</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4711">
+          <span>Local 47%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2226">
+          <span>Empate 22%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3063">
+          <span>Visitante 31%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">9.5%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.0%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">7.1%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-25 22:30</span>
+      </div>
+      <div class="match">New York Red Bulls vs Charlotte</div>
+      <div class="expected-goals">Goles esperados: <b>1.54</b> - <b>1.47</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.3923">
+          <span>Local 39%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2445">
+          <span>Empate 24%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3632">
+          <span>Visitante 36%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.2%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">8.6%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">8.2%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Los Angeles FC vs Real Salt Lake</div>
+      <div class="expected-goals">Goles esperados: <b>1.91</b> - <b>0.89</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.6103">
+          <span>Local 61%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.22">
+          <span>Empate 22%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1698">
+          <span>Visitante 17%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">11.5%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">11.1%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">10.5%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Los Angeles Galaxy vs St. Louis City SC</div>
+      <div class="expected-goals">Goles esperados: <b>1.62</b> - <b>1.35</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4356">
+          <span>Local 44%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2445">
+          <span>Empate 24%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3199">
+          <span>Visitante 32%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.3%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.1%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">8.2%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">Portland Timbers vs FC Dallas</div>
+      <div class="expected-goals">Goles esperados: <b>1.67</b> - <b>1.57</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4058">
+          <span>Local 41%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2344">
+          <span>Empate 23%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3598">
+          <span>Visitante 36%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">10.4%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">8.6%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">8.0%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 02:30</span>
+      </div>
+      <div class="match">San Jose Earthquakes vs Orlando City</div>
+      <div class="expected-goals">Goles esperados: <b>3.1</b> - <b>1.42</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.7077">
+          <span>Local 71%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.1475">
+          <span>Empate 15%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1448">
+          <span>Visitante 14%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">3-1</span><span class="score-prob">7.7%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">7.5%</span></div><div class="score-chip"><span class="score-val">4-1</span><span class="score-prob">6.0%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 01:30</span>
+      </div>
+      <div class="match">Colorado Rapids vs San Diego</div>
+      <div class="expected-goals">Goles esperados: <b>1.57</b> - <b>1.8</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.3365">
+          <span>Local 34%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2281">
+          <span>Empate 23%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.4355">
+          <span>Visitante 44%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">9.8%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">8.8%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">7.6%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Austin vs Seattle Sounders</div>
+      <div class="expected-goals">Goles esperados: <b>1.14</b> - <b>1.54</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.2801">
+          <span>Local 28%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2556">
+          <span>Empate 26%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.4643">
+          <span>Visitante 46%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">12.2%</span></div><div class="score-chip"><span class="score-val">0-1</span><span class="score-prob">10.4%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">9.3%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Nashville SC vs Montréal Impact</div>
+      <div class="expected-goals">Goles esperados: <b>2.44</b> - <b>0.79</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.7375">
+          <span>Local 74%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.1625">
+          <span>Empate 16%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.0999">
+          <span>Visitante 10%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">11.8%</span></div><div class="score-chip"><span class="score-val">3-0</span><span class="score-prob">9.6%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">9.6%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Sporting Kansas City vs Minnesota United</div>
+      <div class="expected-goals">Goles esperados: <b>1.17</b> - <b>1.88</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.2332">
+          <span>Local 23%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2268">
+          <span>Empate 23%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.54">
+          <span>Visitante 54%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">10.5%</span></div><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">9.8%</span></div><div class="score-chip"><span class="score-val">0-1</span><span class="score-prob">8.8%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:30</span>
+      </div>
+      <div class="match">Houston Dynamo vs DC United</div>
+      <div class="expected-goals">Goles esperados: <b>1.79</b> - <b>0.95</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.5718">
+          <span>Local 57%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2326">
+          <span>Empate 23%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1956">
+          <span>Visitante 20%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">11.4%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">11.1%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">10.4%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-23 00:15</span>
+      </div>
+      <div class="match">Charlotte vs Atlanta United FC</div>
+      <div class="expected-goals">Goles esperados: <b>1.89</b> - <b>0.84</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.6183">
+          <span>Local 62%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2206">
+          <span>Empate 22%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1612">
+          <span>Visitante 16%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">12.2%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">11.6%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">10.5%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">FC Cincinnati vs Vancouver Whitecaps</div>
+      <div class="expected-goals">Goles esperados: <b>1.29</b> - <b>2.15</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.2235">
+          <span>Local 22%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2071">
+          <span>Empate 21%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.5693">
+          <span>Visitante 57%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-2</span><span class="score-prob">9.6%</span></div><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">9.0%</span></div><div class="score-chip"><span class="score-val">0-2</span><span class="score-prob">7.4%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">New England Revolution vs Toronto FC</div>
+      <div class="expected-goals">Goles esperados: <b>1.49</b> - <b>1.0</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4846">
+          <span>Local 48%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2633">
+          <span>Empate 26%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.2521">
+          <span>Visitante 25%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">12.5%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">12.2%</span></div><div class="score-chip"><span class="score-val">2-0</span><span class="score-prob">9.2%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Philadelphia Union vs New York Red Bulls</div>
+      <div class="expected-goals">Goles esperados: <b>1.8</b> - <b>1.16</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.5219">
+          <span>Local 52%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.234">
+          <span>Empate 23%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.2441">
+          <span>Visitante 24%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">10.9%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">9.7%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">9.2%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Columbus Crew vs New York City FC</div>
+      <div class="expected-goals">Goles esperados: <b>1.44</b> - <b>1.31</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.4022">
+          <span>Local 40%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.2572">
+          <span>Empate 26%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.3407">
+          <span>Visitante 34%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">1-1</span><span class="score-prob">12.2%</span></div><div class="score-chip"><span class="score-val">1-0</span><span class="score-prob">9.1%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">8.7%</span></div></div>
+    </div>
+    
+
+    <div class="pred-card">
+      <div class="alert-header">
+        <span class="league">Major League Soccer</span>
+        <span class="date">2026-07-22 23:30</span>
+      </div>
+      <div class="match">Inter Miami vs Chicago Fire</div>
+      <div class="expected-goals">Goles esperados: <b>3.08</b> - <b>1.75</b></div>
+      <div class="outcome-bar">
+        <div class="outcome-seg home" style="flex-grow:0.6419">
+          <span>Local 64%</span>
+        </div>
+        <div class="outcome-seg draw" style="flex-grow:0.1603">
+          <span>Empate 16%</span>
+        </div>
+        <div class="outcome-seg away" style="flex-grow:0.1978">
+          <span>Visitante 20%</span>
+        </div>
+      </div>
+      <div class="scores-row"><div class="score-chip"><span class="score-val">3-1</span><span class="score-prob">6.8%</span></div><div class="score-chip"><span class="score-val">2-1</span><span class="score-prob">6.7%</span></div><div class="score-chip"><span class="score-val">3-2</span><span class="score-prob">6.0%</span></div></div>
+    </div>
+    
+
+    <footer>Generado automáticamente vía GitHub Actions + Highlightly</footer>
   </div>
 </body>
 </html>
