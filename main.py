@@ -29,8 +29,8 @@ def _is_upcoming(match: dict, date_from: datetime, date_to: datetime) -> bool:
 
 def _ensure_folders_with_placeholder():
     """
-    Crea data/ y docs/ con contenido mínimo desde el arranque, para que
-    'git add data/ docs/' nunca falle (git no trackea carpetas vacías) aunque
+    Crea data/ y docs/ con contenido mÃ­nimo desde el arranque, para que
+    'git add data/ docs/' nunca falle (git no trackea carpetas vacÃ­as) aunque
     el script corte antes de tiempo (ej. por un 429 de la API).
     """
     os.makedirs("data", exist_ok=True)
@@ -53,7 +53,7 @@ def main():
         return
 
     if not leagues:
-        print("No hay ligas resueltas. Revisá tu API key y la configuración de LEAGUES.")
+        print("No hay ligas resueltas. RevisÃ¡ tu API key y la configuraciÃ³n de LEAGUES.")
         return
 
     now = datetime.now(timezone.utc)
@@ -93,7 +93,7 @@ def main():
         upcoming_by_league[key] = upcoming
 
         if not upcoming:
-            print(f"[INFO] '{key}': sin partidos próximos entre hoy y +{LOOKAHEAD_DAYS} días.")
+            print(f"[INFO] '{key}': sin partidos prÃ³ximos entre hoy y +{LOOKAHEAD_DAYS} dÃ­as.")
             continue
 
         for match in upcoming:
@@ -142,11 +142,11 @@ def main():
             all_predictions = generate_predictions(client, leagues, upcoming_by_league)
             print(f"Total predicciones generadas: {len(all_predictions)}")
         except RateLimitExceeded as e:
-            print(f"[STOP] Predicciones cortadas por límite de cuota: {e}")
+            print(f"[STOP] Predicciones cortadas por lÃ­mite de cuota: {e}")
         except Exception as e:
             print(f"[ERROR] Generando predicciones: {e}")
     else:
-        print("Se salteó la generación de predicciones (ya se había alcanzado el límite de cuota).")
+        print("Se salteÃ³ la generaciÃ³n de predicciones (ya se habÃ­a alcanzado el lÃ­mite de cuota).")
 
     print(f"Requests usados en esta corrida: {client.requests_used}/{MAX_REQUESTS_PER_RUN}")
 
