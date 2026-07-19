@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitácora de Valor — Alertas</title>
+<title>Bitácora de Valor</title>
 <style>
   :root {
     --bg: #0f1115;
@@ -13,6 +13,8 @@
     --muted: #9198a8;
     --accent: #4ade80;
     --accent-soft: rgba(74, 222, 128, 0.12);
+    --blue: #60a5fa;
+    --amber: #fbbf24;
   }
   * { box-sizing: border-box; }
   body {
@@ -24,15 +26,17 @@
   }
   .wrap { max-width: 720px; margin: 0 auto; }
   h1 { font-size: 22px; margin-bottom: 4px; }
-  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
-  .alert-card {
+  h2 { font-size: 17px; margin: 32px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .alert-card, .pred-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
     border-radius: 10px;
     padding: 16px 18px;
     margin-bottom: 14px;
   }
+  .alert-card { border-left: 3px solid var(--accent); }
+  .pred-card { border-left: 3px solid var(--blue); }
   .alert-header { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
   .match { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
   .market-tag {
@@ -51,16 +55,62 @@
   .signal .side { color: var(--accent); font-weight: 700; font-size: 11px; margin-right: 4px; }
   .signal b { color: var(--text); }
   .sample { font-size: 11px; color: var(--muted); margin-top: 8px; opacity: 0.7; }
-  .empty { color: var(--muted); font-style: italic; padding: 24px 0; }
+  .expected-goals { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .expected-goals b { color: var(--text); }
+  .outcome-bar {
+    display: flex;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .outcome-seg { display: flex; align-items: center; justify-content: center; min-width: 40px; }
+  .outcome-seg.home { background: var(--accent); color: #06210f; }
+  .outcome-seg.draw { background: var(--muted); color: #06210f; }
+  .outcome-seg.away { background: var(--blue); color: #06210f; }
+  .scores-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .score-chip {
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 56px;
+  }
+  .score-val { font-size: 13px; font-weight: 700; color: var(--amber); }
+  .score-prob { font-size: 11px; color: var(--muted); }
+  .empty { color: var(--muted); font-style: italic; padding: 16px 0; }
+  .status-banner {
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    color: var(--amber);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
   footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 40px; }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>📋 Bitácora de Valor — Alertas</h1>
-    <div class="subtitle">Corners y tarjetas · doble confirmación (ataque + defensa) · actualizado 2026-07-17 23:12 UTC</div>
+    <h1>📋 Bitácora de Valor</h1>
+    <div class="subtitle">Actualizado 2026-07-19 04:51 UTC</div>
+    
+
+    <h2>🎯 Alertas de valor (corners y tarjetas)</h2>
+    <div class="subtitle">Doble confirmación: ataque de un equipo + defensa floja del rival</div>
     <div class="empty">No se encontraron partidos con doble confirmación en esta corrida.</div>
-    <footer>Generado automáticamente vía GitHub Actions + API-Football</footer>
+
+    <h2>📊 Predicciones (modelo Dixon-Coles)</h2>
+    <div class="subtitle">Probabilidades 1X2 y marcadores más probables, basados en historial de goles</div>
+    <div class="empty">Todavía no hay predicciones disponibles (el modelo puede estar entrenándose, o falta historial suficiente).</div>
+
+    <footer>Generado automáticamente vía GitHub Actions + Highlightly</footer>
   </div>
 </body>
 </html>
