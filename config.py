@@ -7,9 +7,10 @@ Ajustá acá las ligas, temporada y umbrales sin tocar el resto del código.
 # "search" es el texto que se usa para buscar la liga en el endpoint /leagues de API-Football.
 # "country" ayuda a desambiguar (algunas ligas tienen nombres parecidos en distintos países).
 #
-# TEMPORAL: dejamos solo MLS activa para probar el flujo completo sin gastar
-# toda la cuota diaria de golpe. Una vez que confirmemos que todo funciona
-# bien de punta a punta, descomentamos el resto.
+# TEMPORAL: priorizamos ligas que están EN TEMPORADA ahora mismo (julio 2026).
+# Las top-5 europeas están de vacaciones hasta agosto — activarlas ahora sería
+# gastar cuota sin encontrar partidos. Se pueden sumar más adelante cuando
+# arranquen.
 LEAGUES = [
     # {"key": "la_liga",         "search": "La Liga",         "country": "Spain"},
     # {"key": "bundesliga",      "search": "Bundesliga",      "country": "Germany"},
@@ -17,8 +18,12 @@ LEAGUES = [
     # {"key": "champions",       "search": "UEFA Champions League", "country": None},
     {"key": "mls",             "search": "Major League Soccer", "country": "USA"},
     # {"key": "liga_pro_ec",     "search": "Liga Pro",        "country": "Ecuador"},
-    # {"key": "liga_mx",         "search": "Liga MX",         "country": "Mexico"},
-    # {"key": "eliteserien",     "search": "Eliteserien",     "country": "Norway"},
+    {"key": "liga_mx",         "search": "Liga MX",           "country": "Mexico"},
+    {"key": "eliteserien",     "search": "Eliteserien",       "country": "Norway"},
+    {"key": "liga_arg",        "search": "Liga Profesional",  "country": "Argentina"},
+    {"key": "serie_a_brasil",  "search": "Serie A",           "country": "Brazil"},
+    {"key": "allsvenskan",     "search": "Allsvenskan",       "country": "Sweden"},
+    {"key": "superliga_dk",    "search": "Superliga",         "country": "Denmark"},
 ]
 
 # Nota: la temporada de cada liga se resuelve automáticamente (se usa la más
