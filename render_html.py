@@ -17,7 +17,7 @@ def _alert_card(alert: dict) -> str:
         </div>"""
 
     return f"""
-    <div class="alert-card">
+    <div class="alert-card" data-league="{fixture['league']}">
       <div class="alert-header">
         <span class="league">{fixture['league']}</span>
         <span class="date">{fixture['date']}</span>
@@ -38,7 +38,7 @@ def _report_card(report: dict) -> str:
         best_bet_html = f'<div class="best-bet">🏆 Mejor apuesta sugerida: <b>{report["best_bet"]}</b></div>'
 
     return f"""
-    <div class="report-card">
+    <div class="report-card" data-league="{fixture['league']}">
       <div class="alert-header">
         <span class="league">{fixture['league']}</span>
         <span class="date">{fixture['date']}</span>
@@ -61,7 +61,7 @@ def _prediction_card(pred_entry: dict) -> str:
     )
 
     return f"""
-    <div class="pred-card">
+    <div class="pred-card" data-league="{pred_entry['league']}">
       <div class="alert-header">
         <span class="league">{pred_entry['league']}</span>
         <span class="date">{pred_entry['date']}</span>
@@ -84,6 +84,17 @@ def _prediction_card(pred_entry: dict) -> str:
     """
 
 
+def _collect_leagues(alerts: list, predictions: list, match_reports: list) -> list:
+    leagues = set()
+    for r in match_reports:
+        leagues.add(r["fixture"]["league"])
+    for a in alerts:
+        leagues.add(a["fixture"]["league"])
+    for p in predictions:
+        leagues.add(p["league"])
+    return sorted(leagues)
+
+
 def render(alerts: list, predictions: list = None, match_reports: list = None,
            generated_at: str = None, status_message: str = None) -> str:
     predictions = predictions or []
@@ -93,6 +104,11 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
     status_html = ""
     if status_message:
         status_html = f'<div class="status-banner">⚠️ {status_message}</div>'
+
+    league_names = _collect_leagues(alerts, predictions, match_reports)
+    menu_html = '<button class="league-btn active" data-filter="__all__">Todas</button>'
+    for name in league_names:
+        menu_html += f'<button class="league-btn" data-filter="{name}">{name}</button>'
 
     if match_reports:
         reports_html = "\n".join(_report_card(r) for r in match_reports)
@@ -215,6 +231,25 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
     font-size: 13px;
     margin-bottom: 20px;
   }}
+  .league-menu {{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 8px;
+  }}
+  .league-btn {{
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+  }}
+  .league-btn:hover {{ border-color: var(--accent); color: var(--text); }}
+  .league-btn.active {{ background: var(--accent); color: #06210f; border-color: var(--accent); }}
   footer {{ text-align: center; color: var(--muted); font-size: 11px; margin-top: 40px; }}
 </style>
 </head>
@@ -223,6 +258,8 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
     <h1>📋 Bitácora de Valor</h1>
     <div class="subtitle">Actualizado {generated_at}</div>
     {status_html}
+
+    <div class="league-menu">{menu_html}</div>
 
     <h2>🧾 Informe del partido</h2>
     <div class="subtitle">Lectura combinada del modelo + las alertas, con la mejor apuesta sugerida</div>
@@ -238,6 +275,20 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
 
     <footer>Generado automáticamente vía GitHub Actions + Highlightly</footer>
   </div>
+
+  <script>
+    document.querySelectorAll('.league-btn').forEach(function(btn) {{
+      btn.addEventListener('click', function() {{
+        document.querySelectorAll('.league-btn').forEach(function(b) {{ b.classList.remove('active'); }});
+        btn.classList.add('active');
+        var filter = btn.getAttribute('data-filter');
+        document.querySelectorAll('[data-league]').forEach(function(card) {{
+          var show = (filter === '__all__') || (card.getAttribute('data-league') === filter);
+          card.style.display = show ? '' : 'none';
+        }});
+      }});
+    }});
+  </script>
 </body>
 </html>
 """
