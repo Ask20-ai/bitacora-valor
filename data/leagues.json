@@ -4,5 +4,35 @@
     "name": "Major League Soccer",
     "country": "USA",
     "latest_season": 2026
+  },
+  "liga_mx": {
+    "id": 223746,
+    "name": "Liga MX",
+    "country": "Mexico",
+    "latest_season": 2026
+  },
+  "eliteserien": {
+    "id": 88437,
+    "name": "Eliteserien",
+    "country": "Norway",
+    "latest_season": 2026
+  },
+  "serie_a_brasil": {
+    "id": 61205,
+    "name": "Serie A",
+    "country": "Brazil",
+    "latest_season": 2026
+  },
+  "allsvenskan": {
+    "id": 96947,
+    "name": "Allsvenskan",
+    "country": "Sweden",
+    "latest_season": 2026
+  },
+  "superliga_dk": {
+    "id": 102053,
+    "name": "Superliga",
+    "country": "Denmark",
+    "latest_season": 2026
   }
 }
