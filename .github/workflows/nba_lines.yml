@@ -1,0 +1,50 @@
+name: Rastrear línea NBA
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # cada hora en punto
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  track-lines:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Arreglar git (detached HEAD / ownership)
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git checkout -B "${{ github.ref_name }}"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install requests
+
+      - name: Rastrear líneas de NBA
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+        run: python -m nba.main
+
+      - name: Commitear resultados
+        run: |
+          git config user.name "bitacora-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add nba/data/ docs/nba.html
+          git diff --quiet --cached || git commit -m "Actualización de líneas NBA"
+          git push
+
+      - name: Publicar en Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install -g netlify-cli
+          netlify deploy --prod --dir=docs --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN" --message "Actualización NBA $(date -u +%Y-%m-%dT%H:%M:%SZ)"

@@ -1,13 +1,16 @@
-name: "[PRUEBA] Ajustar modelo de predicción"
+name: Rastrear movimiento de línea (NFL/NBA)
 
 on:
+  schedule:
+    # Dos veces al dia: 12:00 y 23:00 UTC
+    - cron: "0 12,23 * * *"
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 jobs:
-  test-fit:
+  track:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -24,17 +27,17 @@ jobs:
           python-version: "3.11"
 
       - name: Instalar dependencias
-        run: pip install requests numpy scipy
+        run: pip install requests
 
-      - name: Correr prueba de ajuste del modelo
+      - name: Rastrear movimiento de línea
         env:
-          HIGHLIGHTLY_API_KEY: ${{ secrets.HIGHLIGHTLY_API_KEY }}
-        run: python -m predictor.fit_and_test
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m line_tracker.track_lines
 
-      - name: Commitear resultados de la prueba
+      - name: Commitear resultados
         run: |
           git config user.name "bitacora-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add predictor/data/
-          git diff --quiet --cached || git commit -m "Prueba de ajuste del modelo de predicción"
+          git add line_tracker/data/
+          git diff --quiet --cached || git commit -m "Actualización de movimiento de línea NFL/NBA"
           git push
