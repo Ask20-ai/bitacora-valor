@@ -256,6 +256,7 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
 <body>
   <div class="wrap">
     <h1>📋 Bitácora de Valor</h1>
+    <p style="margin:0 0 8px;"><a href="nba.html" style="color:var(--blue); font-size:13px;">🏀 Ver movimiento de línea NBA →</a></p>
     <div class="subtitle">Actualizado {generated_at}</div>
     {status_html}
 
