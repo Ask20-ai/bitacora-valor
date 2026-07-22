@@ -1,0 +1,1052 @@
+{
+  "8c94552d022acec4a0458d70c19d3da9": {
+    "home_team": "Seattle Seahawks",
+    "away_team": "New England Patriots",
+    "commence_time": "2026-09-10T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -203.22,
+        "h2h_away": 168.22,
+        "spread_home": -3.72,
+        "total": 44.11
+      }
+    ]
+  },
+  "acc580d74344ea3b31bbcdd057fe6a9c": {
+    "home_team": "Los Angeles Rams",
+    "away_team": "San Francisco 49ers",
+    "commence_time": "2026-09-11T00:35:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -191.56,
+        "h2h_away": 159.33,
+        "spread_home": -3.5,
+        "total": 48.61
+      }
+    ]
+  },
+  "95c01d1bb797d6df14824b106c5a9130": {
+    "home_team": "Pittsburgh Steelers",
+    "away_team": "Atlanta Falcons",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -161.56,
+        "h2h_away": 136.11,
+        "spread_home": -2.94,
+        "total": 41.56
+      }
+    ]
+  },
+  "b6cfdcbafa61ce220ba87dc2d9b80c77": {
+    "home_team": "Indianapolis Colts",
+    "away_team": "Baltimore Ravens",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 161.89,
+        "h2h_away": -194.33,
+        "spread_home": 3.5,
+        "total": 48.56
+      }
+    ]
+  },
+  "7e09efed7e12c659b82740b67ce2f9a1": {
+    "home_team": "Houston Texans",
+    "away_team": "Buffalo Bills",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -59.78,
+        "h2h_away": -116.44,
+        "spread_home": 1.22,
+        "total": 44.5
+      }
+    ]
+  },
+  "fc362aff0d889ec52d358307a70c32ed": {
+    "home_team": "Carolina Panthers",
+    "away_team": "Chicago Bears",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 116.22,
+        "h2h_away": -139.44,
+        "spread_home": 2.44,
+        "total": 45.28
+      }
+    ]
+  },
+  "ed6d24ff979f9c71979fead577b0b3f7": {
+    "home_team": "Cincinnati Bengals",
+    "away_team": "Tampa Bay Buccaneers",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -197.44,
+        "h2h_away": 164.44,
+        "spread_home": -3.5,
+        "total": 52.22
+      }
+    ]
+  },
+  "e55c6fe19fce094ce214c8b0e5b504e9": {
+    "home_team": "Jacksonville Jaguars",
+    "away_team": "Cleveland Browns",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -387.67,
+        "h2h_away": 299.22,
+        "spread_home": -7.5,
+        "total": 40.5
+      }
+    ]
+  },
+  "c1d3fcec25aaeb06ebd2244d33d338e0": {
+    "home_team": "Detroit Lions",
+    "away_team": "New Orleans Saints",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -347.78,
+        "h2h_away": 271.89,
+        "spread_home": -7.06,
+        "total": 49.39
+      }
+    ]
+  },
+  "7dddb296a42e7a41a774b24bd1709ce1": {
+    "home_team": "Tennessee Titans",
+    "away_team": "New York Jets",
+    "commence_time": "2026-09-13T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -144.78,
+        "h2h_away": 121.78,
+        "spread_home": -2.44,
+        "total": 38.5
+      }
+    ]
+  },
+  "1edfa5ceaa1ad2cb57df1c1b908731f6": {
+    "home_team": "Los Angeles Chargers",
+    "away_team": "Arizona Cardinals",
+    "commence_time": "2026-09-13T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -593.33,
+        "h2h_away": 430.78,
+        "spread_home": -10.5,
+        "total": 46.28
+      }
+    ]
+  },
+  "cb77efed7e711d25a72c1a2a0a1af119": {
+    "home_team": "Minnesota Vikings",
+    "away_team": "Green Bay Packers",
+    "commence_time": "2026-09-13T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -110.17,
+        "h2h_away": -111.17,
+        "spread_home": 0.22,
+        "total": 45.44
+      }
+    ]
+  },
+  "c5d95f48a16849ab6bebc68fbbfcb74a": {
+    "home_team": "Las Vegas Raiders",
+    "away_team": "Miami Dolphins",
+    "commence_time": "2026-09-13T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -194.44,
+        "h2h_away": 160.78,
+        "spread_home": -3.67,
+        "total": 40.39
+      }
+    ]
+  },
+  "17885cb8dcade8f6c3bce14b2de805e8": {
+    "home_team": "Philadelphia Eagles",
+    "away_team": "Washington Commanders",
+    "commence_time": "2026-09-13T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -214.22,
+        "h2h_away": 176.78,
+        "spread_home": -4.33,
+        "total": 47.44
+      }
+    ]
+  },
+  "3e646c7479c57f5d9752d8c7dfe7059b": {
+    "home_team": "New York Giants",
+    "away_team": "Dallas Cowboys",
+    "commence_time": "2026-09-14T00:20:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 122.56,
+        "h2h_away": -147.33,
+        "spread_home": 2.56,
+        "total": 47.94
+      }
+    ]
+  },
+  "5ad8135dc2b5f27de0b777acd317855a": {
+    "home_team": "Kansas City Chiefs",
+    "away_team": "Denver Broncos",
+    "commence_time": "2026-09-15T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -151.89,
+        "h2h_away": 126.78,
+        "spread_home": -2.94,
+        "total": 42.78
+      }
+    ]
+  },
+  "56e8897681915f7ec92baeee952bb1ae": {
+    "home_team": "Buffalo Bills",
+    "away_team": "Detroit Lions",
+    "commence_time": "2026-09-18T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -161.67,
+        "h2h_away": 134.33,
+        "spread_home": -3.0,
+        "total": 52.9
+      }
+    ]
+  },
+  "aee7eae1849ebb103b9bf233e9741392": {
+    "home_team": "Atlanta Falcons",
+    "away_team": "Carolina Panthers",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -125.0,
+        "h2h_away": 105.0,
+        "spread_home": -1.5,
+        "total": 43.5
+      }
+    ]
+  },
+  "2143ade9684fd876b68a4e8cbf451f05": {
+    "home_team": "Baltimore Ravens",
+    "away_team": "New Orleans Saints",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -360.0,
+        "h2h_away": 285.0,
+        "spread_home": -7.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "0283a29e1b38ef78b29b904fd56a16dd": {
+    "home_team": "Chicago Bears",
+    "away_team": "Minnesota Vikings",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -192.0,
+        "h2h_away": 160.0,
+        "spread_home": -3.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "36ad2fa722f4915ef23d2c81351261de": {
+    "home_team": "Houston Texans",
+    "away_team": "Cincinnati Bengals",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "0636ebff776d43f8c829a36713c80b22": {
+    "home_team": "Tampa Bay Buccaneers",
+    "away_team": "Cleveland Browns",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -250.0,
+        "h2h_away": 205.0,
+        "spread_home": -6.25,
+        "total": 42.5
+      }
+    ]
+  },
+  "4aeee070bb6ec60bdfae4dede61b9014": {
+    "home_team": "New York Jets",
+    "away_team": "Green Bay Packers",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 215.0,
+        "h2h_away": -265.0,
+        "spread_home": 6.0,
+        "total": 42.5
+      }
+    ]
+  },
+  "9d14f87600f6edc74dbcb5c74edf6246": {
+    "home_team": "New England Patriots",
+    "away_team": "Pittsburgh Steelers",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -225.0,
+        "h2h_away": 185.0,
+        "spread_home": -4.5,
+        "total": 43.5
+      }
+    ]
+  },
+  "fafc649c455e32a0f2ba1bd06e2039bc": {
+    "home_team": "Tennessee Titans",
+    "away_team": "Philadelphia Eagles",
+    "commence_time": "2026-09-20T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 170.0,
+        "h2h_away": -205.0,
+        "spread_home": 4.5,
+        "total": 42.5
+      }
+    ]
+  },
+  "1fd6628c781f556a7a19638e97d7107f": {
+    "home_team": "Denver Broncos",
+    "away_team": "Jacksonville Jaguars",
+    "commence_time": "2026-09-20T20:05:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -142.0,
+        "h2h_away": 120.0,
+        "spread_home": -2.5,
+        "total": 43.5
+      }
+    ]
+  },
+  "71b3b83747589efdc5baef2c5cf811bf": {
+    "home_team": "Los Angeles Chargers",
+    "away_team": "Las Vegas Raiders",
+    "commence_time": "2026-09-20T20:05:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -425.0,
+        "h2h_away": 330.0,
+        "spread_home": -8.5,
+        "total": 42.5
+      }
+    ]
+  },
+  "4dd8020192a544385db42374e5555303": {
+    "home_team": "Arizona Cardinals",
+    "away_team": "Seattle Seahawks",
+    "commence_time": "2026-09-20T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 380.0,
+        "h2h_away": -500.0,
+        "spread_home": 10.0,
+        "total": 44.5
+      }
+    ]
+  },
+  "85ef85098ddd22fe4ecf45e7e3c0a9c0": {
+    "home_team": "Dallas Cowboys",
+    "away_team": "Washington Commanders",
+    "commence_time": "2026-09-20T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -205.0,
+        "h2h_away": 170.0,
+        "spread_home": -4.5,
+        "total": 51.5
+      }
+    ]
+  },
+  "68bc55903f50af4af4766adcc89fcc61": {
+    "home_team": "San Francisco 49ers",
+    "away_team": "Miami Dolphins",
+    "commence_time": "2026-09-20T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -575.0,
+        "h2h_away": 425.0,
+        "spread_home": -10.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "50bc247030707d823b9c3581d7eb5760": {
+    "home_team": "Kansas City Chiefs",
+    "away_team": "Indianapolis Colts",
+    "commence_time": "2026-09-21T00:20:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -285.0,
+        "h2h_away": 230.0,
+        "spread_home": -6.0,
+        "total": 47.5
+      }
+    ]
+  },
+  "32367f882fac1a0c20a6335619922025": {
+    "home_team": "Los Angeles Rams",
+    "away_team": "New York Giants",
+    "commence_time": "2026-09-22T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -380.0,
+        "h2h_away": 300.0,
+        "spread_home": -9.0,
+        "total": 48.0
+      }
+    ]
+  },
+  "e5fbd3b3953b896b1bf897ddadb3cc4b": {
+    "home_team": "Green Bay Packers",
+    "away_team": "Atlanta Falcons",
+    "commence_time": "2026-09-25T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -355.0,
+        "h2h_away": 280.0,
+        "spread_home": -7.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "b225458a282e140c44c45651255f2f6c": {
+    "home_team": "Buffalo Bills",
+    "away_team": "Los Angeles Chargers",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -162.0,
+        "h2h_away": 136.0,
+        "spread_home": -3.0,
+        "total": 48.5
+      }
+    ]
+  },
+  "613b8cd3a5fab58f7be4e3fd6f76223e": {
+    "home_team": "Cleveland Browns",
+    "away_team": "Carolina Panthers",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.0,
+        "h2h_away": -125.0,
+        "spread_home": 1.5,
+        "total": 39.5
+      }
+    ]
+  },
+  "71123be049587b6facce3a20c53e5d09": {
+    "home_team": "Pittsburgh Steelers",
+    "away_team": "Cincinnati Bengals",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.0,
+        "h2h_away": -125.0,
+        "spread_home": 1.5,
+        "total": 47.5
+      }
+    ]
+  },
+  "07f552badfa8a565d1be22123713e4da": {
+    "home_team": "Detroit Lions",
+    "away_team": "New York Jets",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -425.0,
+        "h2h_away": 330.0,
+        "spread_home": -9.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "17a730b7d399feeab6a78c30767c29d2": {
+    "home_team": "Indianapolis Colts",
+    "away_team": "Houston Texans",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.0,
+        "h2h_away": -125.0,
+        "spread_home": 1.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "1f3cfd315a24d1a7dd5859a8e6b88e18": {
+    "home_team": "Jacksonville Jaguars",
+    "away_team": "New England Patriots",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -118.0,
+        "h2h_away": -102.0,
+        "spread_home": -1.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "0339a0e41bcee12820eb3e64bb5fadb4": {
+    "home_team": "Miami Dolphins",
+    "away_team": "Kansas City Chiefs",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 275.0,
+        "h2h_away": -345.0,
+        "spread_home": 7.25,
+        "total": 44.5
+      }
+    ]
+  },
+  "555afd4a27aaa392662881cffa8f2eef": {
+    "home_team": "New York Giants",
+    "away_team": "Tennessee Titans",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -166.0,
+        "h2h_away": 140.0,
+        "spread_home": -3.0,
+        "total": 45.0
+      }
+    ]
+  },
+  "2a529c108305ffa049d8b6cfdbaa4d36": {
+    "home_team": "Washington Commanders",
+    "away_team": "Seattle Seahawks",
+    "commence_time": "2026-09-27T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 160.0,
+        "h2h_away": -192.0,
+        "spread_home": 3.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "9d2b09e0f9b6dd5ce0d985894f4f98fa": {
+    "home_team": "San Francisco 49ers",
+    "away_team": "Arizona Cardinals",
+    "commence_time": "2026-09-27T20:05:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -600.0,
+        "h2h_away": 440.0,
+        "spread_home": -11.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "f1724dead3eab61546033032fc782375": {
+    "home_team": "Tampa Bay Buccaneers",
+    "away_team": "Minnesota Vikings",
+    "commence_time": "2026-09-27T20:05:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -125.0,
+        "h2h_away": 105.0,
+        "spread_home": -1.5,
+        "total": 44.5
+      }
+    ]
+  },
+  "84cfca14efc21363fd605508404cf1ff": {
+    "home_team": "Dallas Cowboys",
+    "away_team": "Baltimore Ravens",
+    "commence_time": "2026-09-27T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 115.67,
+        "h2h_away": -136.67,
+        "spread_home": 2.5,
+        "total": 51.25
+      }
+    ]
+  },
+  "2e523fcb0497aa689473e290eb2b97de": {
+    "home_team": "New Orleans Saints",
+    "away_team": "Las Vegas Raiders",
+    "commence_time": "2026-09-27T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -166.0,
+        "h2h_away": 140.0,
+        "spread_home": -3.0,
+        "total": 42.5
+      }
+    ]
+  },
+  "3bfd8bfb4b8e9a365a0877879b73b16b": {
+    "home_team": "Denver Broncos",
+    "away_team": "Los Angeles Rams",
+    "commence_time": "2026-09-28T00:20:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 114.0,
+        "h2h_away": -135.0,
+        "spread_home": 2.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "47dc7baa254659f3beb2ed2b38c207b6": {
+    "home_team": "Chicago Bears",
+    "away_team": "Philadelphia Eagles",
+    "commence_time": "2026-09-29T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -118.0,
+        "h2h_away": -102.0,
+        "spread_home": -1.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "d55cb69fed50a09170560b5b75d8de86": {
+    "home_team": "Cleveland Browns",
+    "away_team": "Pittsburgh Steelers",
+    "commence_time": "2026-10-02T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 120.0,
+        "h2h_away": -142.0,
+        "spread_home": 2.5,
+        "total": 40.5
+      }
+    ]
+  },
+  "c9d8ed8aa4889486eaf10a630138ede0": {
+    "home_team": "Washington Commanders",
+    "away_team": "Indianapolis Colts",
+    "commence_time": "2026-10-04T13:30:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -113.0,
+        "h2h_away": -106.33,
+        "spread_home": -1.5,
+        "total": 49.25
+      }
+    ]
+  },
+  "664e6bda5721dc63be16bcf7d962a436": {
+    "home_team": "New York Giants",
+    "away_team": "Arizona Cardinals",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -310.0,
+        "h2h_away": 250.0,
+        "spread_home": -7.0,
+        "total": 45.5
+      }
+    ]
+  },
+  "f01589b0e7e6dd4f4ac1220a1db81f53": {
+    "home_team": "Baltimore Ravens",
+    "away_team": "Tennessee Titans",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -395.0,
+        "h2h_away": 310.0,
+        "spread_home": -8.5,
+        "total": 47.5
+      }
+    ]
+  },
+  "573cc0ef39631a4f6673ec843a8bedd4": {
+    "home_team": "Buffalo Bills",
+    "away_team": "New England Patriots",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -162.0,
+        "h2h_away": 136.0,
+        "spread_home": -3.0,
+        "total": 49.5
+      }
+    ]
+  },
+  "164e6eb68f31bac190381903c3cccd31": {
+    "home_team": "Chicago Bears",
+    "away_team": "New York Jets",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -395.0,
+        "h2h_away": 310.0,
+        "spread_home": -8.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "2ea94ddf20f66432b9024fe2e2eaba5f": {
+    "home_team": "Cincinnati Bengals",
+    "away_team": "Jacksonville Jaguars",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 51.5
+      }
+    ]
+  },
+  "daf55e2df5341c007fee5a0fc5bbc2d4": {
+    "home_team": "Houston Texans",
+    "away_team": "Dallas Cowboys",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 47.5
+      }
+    ]
+  },
+  "99a9bae4dc0dc2590496bd3102b211f2": {
+    "home_team": "Tampa Bay Buccaneers",
+    "away_team": "Green Bay Packers",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.0,
+        "h2h_away": -125.0,
+        "spread_home": 1.5,
+        "total": 47.5
+      }
+    ]
+  },
+  "1b4f2e60ce83fa1d63a5dff83769d27c": {
+    "home_team": "Philadelphia Eagles",
+    "away_team": "Los Angeles Rams",
+    "commence_time": "2026-10-04T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.0,
+        "h2h_away": -125.0,
+        "spread_home": 1.5,
+        "total": 47.5
+      }
+    ]
+  },
+  "c327223d76a3b7b0db8c6c104442f44b": {
+    "home_team": "Minnesota Vikings",
+    "away_team": "Miami Dolphins",
+    "commence_time": "2026-10-04T20:05:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -355.0,
+        "h2h_away": 280.0,
+        "spread_home": -7.5,
+        "total": 43.5
+      }
+    ]
+  },
+  "a7e7efb75a9792ac63480ae6328dca18": {
+    "home_team": "San Francisco 49ers",
+    "away_team": "Denver Broncos",
+    "commence_time": "2026-10-04T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 46.5
+      }
+    ]
+  },
+  "e0cbd266dcf997089203a1b33ba0333d": {
+    "home_team": "Las Vegas Raiders",
+    "away_team": "Kansas City Chiefs",
+    "commence_time": "2026-10-04T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 200.0,
+        "h2h_away": -245.0,
+        "spread_home": 5.5,
+        "total": 43.5
+      }
+    ]
+  },
+  "96d2373cda647873b971f268482bced0": {
+    "home_team": "Seattle Seahawks",
+    "away_team": "Los Angeles Chargers",
+    "commence_time": "2026-10-04T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -162.0,
+        "h2h_away": 136.0,
+        "spread_home": -3.0,
+        "total": 45.5
+      }
+    ]
+  },
+  "a73a76599a4f3422803e57bd8f61b626": {
+    "home_team": "Carolina Panthers",
+    "away_team": "Detroit Lions",
+    "commence_time": "2026-10-05T00:20:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 136.0,
+        "h2h_away": -162.0,
+        "spread_home": 3.0,
+        "total": 47.5
+      }
+    ]
+  },
+  "8bd90781e17e6d97df3941063cedae1e": {
+    "home_team": "New Orleans Saints",
+    "away_team": "Atlanta Falcons",
+    "commence_time": "2026-10-06T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 45.5
+      }
+    ]
+  },
+  "259b5df9aa0d10257f56de78523495e0": {
+    "home_team": "Dallas Cowboys",
+    "away_team": "Tampa Bay Buccaneers",
+    "commence_time": "2026-10-09T00:15:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -192.0,
+        "h2h_away": 160.0,
+        "spread_home": -3.5,
+        "total": 52.5
+      }
+    ]
+  },
+  "21b26266f3d78af02eb672e606275d95": {
+    "home_team": "Jacksonville Jaguars",
+    "away_team": "Philadelphia Eagles",
+    "commence_time": "2026-10-11T13:30:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.33,
+        "h2h_away": -124.67,
+        "spread_home": 1.5,
+        "total": 45.0
+      }
+    ]
+  },
+  "c4647ca1201e6768501877267ca8251b": {
+    "home_team": "Miami Dolphins",
+    "away_team": "Cincinnati Bengals",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 195.0,
+        "h2h_away": -238.0,
+        "spread_home": 5.5,
+        "total": 49.5
+      }
+    ]
+  },
+  "9db4ed15fe34fca1fb62f040cd244591": {
+    "home_team": "New York Jets",
+    "away_team": "Cleveland Browns",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -130.0,
+        "h2h_away": 110.0,
+        "spread_home": -1.5,
+        "total": 39.5
+      }
+    ]
+  },
+  "cc52bba56e74f5cddbe9011046181c3d": {
+    "home_team": "Tennessee Titans",
+    "away_team": "Houston Texans",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 160.0,
+        "h2h_away": -192.0,
+        "spread_home": 3.5,
+        "total": 43.5
+      }
+    ]
+  },
+  "448d7cf18c6db4c811ed82ded1b72867": {
+    "home_team": "Pittsburgh Steelers",
+    "away_team": "Indianapolis Colts",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 47.5
+      }
+    ]
+  },
+  "6b024bad1abb54f597225e4ab9b39d89": {
+    "home_team": "New England Patriots",
+    "away_team": "Las Vegas Raiders",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -395.0,
+        "h2h_away": 310.0,
+        "spread_home": -8.5,
+        "total": 44.5
+      }
+    ]
+  },
+  "2cda9bf0fbe35a2735f0dd8aaafe9eff": {
+    "home_team": "New Orleans Saints",
+    "away_team": "Minnesota Vikings",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 105.0,
+        "h2h_away": -125.0,
+        "spread_home": 1.5,
+        "total": 44.5
+      }
+    ]
+  },
+  "fbffd0b7722fd81d68d5d62472dc80e8": {
+    "home_team": "Washington Commanders",
+    "away_team": "New York Giants",
+    "commence_time": "2026-10-11T17:00:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -130.0,
+        "h2h_away": 110.0,
+        "spread_home": -2.0,
+        "total": 48.5
+      }
+    ]
+  },
+  "d1d408fdfd272046fb517fe992a1c5a0": {
+    "home_team": "Los Angeles Chargers",
+    "away_team": "Denver Broncos",
+    "commence_time": "2026-10-11T20:05:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -135.0,
+        "h2h_away": 114.0,
+        "spread_home": -2.5,
+        "total": 44.5
+      }
+    ]
+  },
+  "8e5d515b10d8a5ffb324640ed60bcc55": {
+    "home_team": "Seattle Seahawks",
+    "away_team": "San Francisco 49ers",
+    "commence_time": "2026-10-11T20:25:00Z",
+    "history": [
+      {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -198.0,
+        "h2h_away": 164.0,
+        "spread_home": -3.5,
+        "total": 48.5
+      }
+    ]
+  }
+}
