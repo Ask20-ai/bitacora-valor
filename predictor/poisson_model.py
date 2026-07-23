@@ -1,32 +1,32 @@
 """
-Modelo Dixon-Coles (Poisson bivariado con corrección para marcadores bajos).
+Modelo Dixon-Coles (Poisson bivariado con correcciÃ³n para marcadores bajos).
 
 Referencia: Dixon, M.J. and Coles, S.G. (1997), "Modelling Association
 Football Scores and Inefficiencies in the Football Betting Market".
 
 Idea general:
 - A cada equipo se le asigna una fuerza de ataque y una de defensa.
-- Con eso se calcula cuántos goles se espera que meta cada equipo en un
+- Con eso se calcula cuÃ¡ntos goles se espera que meta cada equipo en un
   partido dado (lambda_local, lambda_visitante).
 - Se arma la matriz de probabilidad de todos los marcadores posibles usando
-  Poisson, con una corrección (rho) para los marcadores bajos (0-0, 1-0,
-  0-1, 1-1), que es donde el Poisson puro se aleja más de la realidad.
-- Los partidos más recientes pesan más que los viejos (decaimiento temporal).
+  Poisson, con una correcciÃ³n (rho) para los marcadores bajos (0-0, 1-0,
+  0-1, 1-1), que es donde el Poisson puro se aleja mÃ¡s de la realidad.
+- Los partidos mÃ¡s recientes pesan mÃ¡s que los viejos (decaimiento temporal).
 """
 import numpy as np
 from scipy.optimize import minimize
 from scipy.stats import poisson
 from datetime import datetime
 
-# Decaimiento temporal: cuánto "pesa" un partido según su antigüedad en días.
-# Con XI=0.0018, un partido de hace 1 año pesa aprox. la mitad que uno de hoy.
+# Decaimiento temporal: cuÃ¡nto "pesa" un partido segÃºn su antigÃ¼edad en dÃ­as.
+# Con XI=0.0018, un partido de hace 1 aÃ±o pesa aprox. la mitad que uno de hoy.
 XI = 0.0018
 RHO_BOUNDS = (-0.2, 0.2)
 MAX_GOALS = 8  # tope de goles considerado al armar la matriz de marcadores
 
 
 def _tau(x: int, y: int, lam_home: float, lam_away: float, rho: float) -> float:
-    """Corrección de Dixon-Coles para marcadores bajos."""
+    """CorrecciÃ³n de Dixon-Coles para marcadores bajos."""
     if x == 0 and y == 0:
         return 1 - lam_home * lam_away * rho
     elif x == 0 and y == 1:
@@ -42,11 +42,11 @@ def fit_dixon_coles(results: list, reference_date: str = None) -> dict:
     """
     results: lista de dicts con home_team, away_team, home_goals, away_goals, date (YYYY-MM-DD).
     Devuelve un dict serializable con las fuerzas de cada equipo y los
-    parámetros globales del modelo (home_adv, rho).
+    parÃ¡metros globales del modelo (home_adv, rho).
     """
     if len(results) < 20:
         raise ValueError(
-            f"Muy pocos partidos históricos ({len(results)}) para ajustar el modelo "
+            f"Muy pocos partidos histÃ³ricos ({len(results)}) para ajustar el modelo "
             "de forma confiable. Hacen falta al menos ~20-30 partidos por liga."
         )
 
@@ -106,7 +106,7 @@ def fit_dixon_coles(results: list, reference_date: str = None) -> dict:
 
 def predict_match(model: dict, home_team: str, away_team: str) -> dict:
     """
-    Devuelve probabilidades de 1X2 y los marcadores más probables para un
+    Devuelve probabilidades de 1X2 y los marcadores mÃ¡s probables para un
     partido, usando un modelo ya ajustado con fit_dixon_coles.
     """
     attack = model["attack"]
@@ -136,11 +136,22 @@ def predict_match(model: dict, home_team: str, away_team: str) -> dict:
     draw = float(sum(p for (x, y), p in score_probs.items() if x == y))
     away_win = float(sum(p for (x, y), p in score_probs.items() if x < y))
 
+    btts_yes = float(sum(p for (x, y), p in score_probs.items() if x >= 1 and y >= 1))
+    over_15 = float(sum(p for (x, y), p in score_probs.items() if x + y >= 2))
+    over_25 = float(sum(p for (x, y), p in score_probs.items() if x + y >= 3))
+    over_35 = float(sum(p for (x, y), p in score_probs.items() if x + y >= 4))
+
     top_scores = sorted(score_probs.items(), key=lambda kv: -kv[1])[:5]
 
     return {
         "lambda_home": round(lam_home, 2),
         "lambda_away": round(lam_away, 2),
+        "goals_markets": {
+            "btts_yes": round(btts_yes, 4),
+            "over_1.5": round(over_15, 4),
+            "over_2.5": round(over_25, 4),
+            "over_3.5": round(over_35, 4),
+        },
         "outcome_probs": {
             "home_win": round(home_win, 4),
             "draw": round(draw, 4),
