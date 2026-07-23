@@ -1,14 +1,15 @@
 """
 Arma un informe en texto por partido, combinando:
-- Las probabilidades del modelo Dixon-Coles (1X2 + marcador más probable)
-- Las alertas de corners/tarjetas (doble confirmación ataque/defensa)
+- Las probabilidades del modelo Dixon-Coles (1X2 + marcador mÃ¡s probable)
+- Las alertas de corners/tarjetas (doble confirmaciÃ³n ataque/defensa)
 
-Es texto generado con reglas a partir de los números ya calculados — no es
+Es texto generado con reglas a partir de los nÃºmeros ya calculados â€” no es
 una IA "adivinando" el partido. Todo lo que dice el informe es trazable a un
-cálculo concreto hecho antes en el pipeline.
+cÃ¡lculo concreto hecho antes en el pipeline.
 """
 
 MARKET_LABELS = {"corners": "corners", "cards": "tarjetas"}
+GOALS_MARKET_THRESHOLD = 0.60  # a partir de que probabilidad vale la pena mencionar BTTS/Over en el texto
 
 
 def _fixture_key(fixture: dict) -> tuple:
@@ -23,16 +24,28 @@ def _describe_outcome(pred: dict, home: str, away: str) -> str:
     if fav_pct >= 55:
         strength = f"{favorite} aparece como favorito claro ({fav_pct:.0f}%)"
     elif fav_pct >= 40:
-        strength = f"{favorite} es el resultado más probable, pero sin ser un partido cerrado ({fav_pct:.0f}%)"
+        strength = f"{favorite} es el resultado mÃ¡s probable, pero sin ser un partido cerrado ({fav_pct:.0f}%)"
     else:
         strength = "es un partido muy parejo, sin un favorito definido"
 
     top = pred["top_scores"][0]
-    return (
-        f"Según el modelo, {strength}. Se esperan {pred['lambda_home']} goles de {home} "
-        f"y {pred['lambda_away']} de {away}; el marcador más probable es {top['score']} "
+    text = (
+        f"SegÃºn el modelo, {strength}. Se esperan {pred['lambda_home']} goles de {home} "
+        f"y {pred['lambda_away']} de {away}; el marcador mÃ¡s probable es {top['score']} "
         f"({top['prob']*100:.0f}%)."
     )
+
+    gm = pred.get("goals_markets")
+    if gm:
+        extra = []
+        if gm["btts_yes"] >= GOALS_MARKET_THRESHOLD:
+            extra.append(f"que ambos anoten ({gm['btts_yes']*100:.0f}%)")
+        if gm["over_2.5"] >= GOALS_MARKET_THRESHOLD:
+            extra.append(f"over 2.5 goles ({gm['over_2.5']*100:.0f}%)")
+        if extra:
+            text += " TambiÃ©n hay buena probabilidad de " + " y ".join(extra) + "."
+
+    return text
 
 
 def _describe_alert(alert_result: dict, home: str, away: str) -> str:
@@ -50,13 +63,13 @@ def _describe_alert(alert_result: dict, home: str, away: str) -> str:
         strength = "apenas por encima"
 
     return (
-        f"En {market_label}, hay doble confirmación del lado de {sides}: la proyección combinada "
-        f"({total}) queda {strength} de la línea de referencia ({line})."
+        f"En {market_label}, hay doble confirmaciÃ³n del lado de {sides}: la proyecciÃ³n combinada "
+        f"({total}) queda {strength} de la lÃ­nea de referencia ({line})."
     )
 
 
 def _confidence_score(alert_result: dict) -> float:
-    """Qué tan por encima de la línea está la proyección, en proporción — para rankear cuál alerta es más fuerte."""
+    """QuÃ© tan por encima de la lÃ­nea estÃ¡ la proyecciÃ³n, en proporciÃ³n â€” para rankear cuÃ¡l alerta es mÃ¡s fuerte."""
     return (alert_result["projected_total"] - alert_result["line_reference"]) / alert_result["line_reference"]
 
 
@@ -93,20 +106,26 @@ def build_match_reports(alerts: list, predictions: list) -> list:
         if not parts:
             continue
 
-        # La "mejor apuesta" es la alerta con más margen sobre la línea, si hay
-        # alguna; si no hay alertas pero sí predicción, se resalta el 1X2 más probable.
+        # La "mejor apuesta" es la alerta con mÃ¡s margen sobre la lÃ­nea, si hay
+        # alguna; si no hay alertas pero sÃ­ predicciÃ³n, se resalta el 1X2 mÃ¡s probable.
         best_bet = None
         if entry["alerts"]:
             best_alert = max(entry["alerts"], key=_confidence_score)
             market_label = MARKET_LABELS.get(best_alert["market"], best_alert["market"])
-            best_bet = f"Over de {market_label} ({best_alert['projected_total']} vs. línea {best_alert['line_reference']})"
+            best_bet = f"Over de {market_label} ({best_alert['projected_total']} vs. lÃ­nea {best_alert['line_reference']})"
         elif entry["prediction"]:
             o = entry["prediction"]["outcome_probs"]
-            favorite, pct = max(
-                [(home, o["home_win"]), ("Empate", o["draw"]), (away, o["away_win"])],
-                key=lambda t: t[1],
-            )
-            best_bet = f"{favorite} ({pct*100:.0f}%)"
+            gm = entry["prediction"].get("goals_markets", {})
+            candidates = [
+                (home, o["home_win"]),
+                ("Empate", o["draw"]),
+                (away, o["away_win"]),
+            ]
+            if gm:
+                candidates.append(("Ambos anotan (BTTS)", gm["btts_yes"]))
+                candidates.append(("Over 2.5 goles", gm["over_2.5"]))
+            best_label, pct = max(candidates, key=lambda t: t[1])
+            best_bet = f"{best_label} ({pct*100:.0f}%)"
 
         reports.append({
             "fixture": fixture,
