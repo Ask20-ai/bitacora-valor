@@ -23,10 +23,10 @@ def _alert_card(alert: dict) -> str:
         <span class="date">{fixture['date']}</span>
       </div>
       <div class="match">{fixture['home']} vs {fixture['away']}</div>
-      <div class="market-tag">{market_label} — línea de referencia {result['line_reference']}</div>
-      <div class="projected">Proyección combinada: <b>{result['projected_total']}</b></div>
+      <div class="market-tag">{market_label} â€” lÃ­nea de referencia {result['line_reference']}</div>
+      <div class="projected">ProyecciÃ³n combinada: <b>{result['projected_total']}</b></div>
       {signals_html}
-      <div class="sample">Muestra: local {result['sample_sizes']['home']} partidos · visitante {result['sample_sizes']['away']} partidos</div>
+      <div class="sample">Muestra: local {result['sample_sizes']['home']} partidos Â· visitante {result['sample_sizes']['away']} partidos</div>
     </div>
     """
 
@@ -35,7 +35,7 @@ def _report_card(report: dict) -> str:
     fixture = report["fixture"]
     best_bet_html = ""
     if report.get("best_bet"):
-        best_bet_html = f'<div class="best-bet">🏆 Mejor apuesta sugerida: <b>{report["best_bet"]}</b></div>'
+        best_bet_html = f'<div class="best-bet">ðŸ† Mejor apuesta sugerida: <b>{report["best_bet"]}</b></div>'
 
     return f"""
     <div class="report-card" data-league="{fixture['league']}">
@@ -53,12 +53,23 @@ def _report_card(report: dict) -> str:
 def _prediction_card(pred_entry: dict) -> str:
     pred = pred_entry["prediction"]
     o = pred["outcome_probs"]
+    gm = pred.get("goals_markets", {})
 
     scores_html = "".join(
         f'<div class="score-chip"><span class="score-val">{s["score"]}</span>'
         f'<span class="score-prob">{s["prob"]*100:.1f}%</span></div>'
         for s in pred["top_scores"][:3]
     )
+
+    goals_markets_html = ""
+    if gm:
+        goals_markets_html = f"""
+      <div class="goals-markets-row">
+        <div class="gm-chip"><span class="gm-label">BTTS</span><span class="gm-val">{gm['btts_yes']*100:.0f}%</span></div>
+        <div class="gm-chip"><span class="gm-label">Over 1.5</span><span class="gm-val">{gm['over_1.5']*100:.0f}%</span></div>
+        <div class="gm-chip"><span class="gm-label">Over 2.5</span><span class="gm-val">{gm['over_2.5']*100:.0f}%</span></div>
+        <div class="gm-chip"><span class="gm-label">Over 3.5</span><span class="gm-val">{gm['over_3.5']*100:.0f}%</span></div>
+      </div>"""
 
     return f"""
     <div class="pred-card" data-league="{pred_entry['league']}">
@@ -80,6 +91,7 @@ def _prediction_card(pred_entry: dict) -> str:
         </div>
       </div>
       <div class="scores-row">{scores_html}</div>
+      {goals_markets_html}
     </div>
     """
 
@@ -103,7 +115,7 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
 
     status_html = ""
     if status_message:
-        status_html = f'<div class="status-banner">⚠️ {status_message}</div>'
+        status_html = f'<div class="status-banner">âš ï¸ {status_message}</div>'
 
     league_names = _collect_leagues(alerts, predictions, match_reports)
     menu_html = '<button class="league-btn active" data-filter="__all__">Todas</button>'
@@ -113,24 +125,24 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
     if match_reports:
         reports_html = "\n".join(_report_card(r) for r in match_reports)
     else:
-        reports_html = '<div class="empty">Todavía no hay informes disponibles para esta corrida.</div>'
+        reports_html = '<div class="empty">TodavÃ­a no hay informes disponibles para esta corrida.</div>'
 
     if alerts:
         alerts_html = "\n".join(_alert_card(a) for a in alerts)
     else:
-        alerts_html = '<div class="empty">No se encontraron partidos con doble confirmación en esta corrida.</div>'
+        alerts_html = '<div class="empty">No se encontraron partidos con doble confirmaciÃ³n en esta corrida.</div>'
 
     if predictions:
         predictions_html = "\n".join(_prediction_card(p) for p in predictions)
     else:
-        predictions_html = '<div class="empty">Todavía no hay predicciones disponibles (el modelo puede estar entrenándose, o falta historial suficiente).</div>'
+        predictions_html = '<div class="empty">TodavÃ­a no hay predicciones disponibles (el modelo puede estar entrenÃ¡ndose, o falta historial suficiente).</div>'
 
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitácora de Valor</title>
+<title>BitÃ¡cora de Valor</title>
 <style>
   :root {{
     --bg: #0f1115;
@@ -209,6 +221,19 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
   .outcome-seg.draw {{ background: var(--muted); color: #06210f; }}
   .outcome-seg.away {{ background: var(--blue); color: #06210f; }}
   .scores-row {{ display: flex; gap: 8px; flex-wrap: wrap; }}
+  .goals-markets-row {{ display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }}
+  .gm-chip {{
+    background: rgba(96, 165, 250, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 8px;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 56px;
+  }}
+  .gm-label {{ font-size: 10px; color: var(--muted); }}
+  .gm-val {{ font-size: 13px; font-weight: 700; color: var(--blue); }}
   .score-chip {{
     background: rgba(251, 191, 36, 0.12);
     border: 1px solid rgba(251, 191, 36, 0.3);
@@ -255,26 +280,26 @@ def render(alerts: list, predictions: list = None, match_reports: list = None,
 </head>
 <body>
   <div class="wrap">
-    <h1>📋 Bitácora de Valor</h1>
-    <p style="margin:0 0 8px;"><a href="nba.html" style="color:var(--blue); font-size:13px;">🏀 Ver movimiento de línea NBA →</a></p>
+    <h1>ðŸ“‹ BitÃ¡cora de Valor</h1>
+    <p style="margin:0 0 8px;"><a href="nba.html" style="color:var(--blue); font-size:13px;">ðŸ€ Ver movimiento de lÃ­nea NBA â†’</a></p>
     <div class="subtitle">Actualizado {generated_at}</div>
     {status_html}
 
     <div class="league-menu">{menu_html}</div>
 
-    <h2>🧾 Informe del partido</h2>
+    <h2>ðŸ§¾ Informe del partido</h2>
     <div class="subtitle">Lectura combinada del modelo + las alertas, con la mejor apuesta sugerida</div>
     {reports_html}
 
-    <h2>🎯 Alertas de valor (corners y tarjetas)</h2>
-    <div class="subtitle">Doble confirmación: ataque de un equipo + defensa floja del rival</div>
+    <h2>ðŸŽ¯ Alertas de valor (corners y tarjetas)</h2>
+    <div class="subtitle">Doble confirmaciÃ³n: ataque de un equipo + defensa floja del rival</div>
     {alerts_html}
 
-    <h2>📊 Predicciones (modelo Dixon-Coles)</h2>
-    <div class="subtitle">Probabilidades 1X2 y marcadores más probables, basados en historial de goles</div>
+    <h2>ðŸ“Š Predicciones (modelo Dixon-Coles)</h2>
+    <div class="subtitle">Probabilidades 1X2 y marcadores mÃ¡s probables, basados en historial de goles</div>
     {predictions_html}
 
-    <footer>Generado automáticamente vía GitHub Actions + Highlightly</footer>
+    <footer>Generado automÃ¡ticamente vÃ­a GitHub Actions + Highlightly</footer>
   </div>
 
   <script>
