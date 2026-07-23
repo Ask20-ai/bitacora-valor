@@ -1,6 +1,6 @@
 """
-Resuelve el ID numérico de cada liga en Highlightly (una sola vez) y guarda
-también la temporada más reciente disponible, en data/leagues.json.
+Resuelve el ID numÃ©rico de cada liga en Highlightly (una sola vez) y guarda
+tambiÃ©n la temporada mÃ¡s reciente disponible, en data/leagues.json.
 """
 import json
 import os
@@ -29,7 +29,7 @@ def _best_match(results: list, search_name: str, country: str = None):
         filtered = [r for r in results if r.get("country", {}).get("name", "").lower() == country.lower()]
         if filtered:
             candidates = filtered
-    # Preferimos el que matchee más de cerca el nombre buscado
+    # Preferimos el que matchee mÃ¡s de cerca el nombre buscado
     search_lower = search_name.lower()
     exact = [r for r in candidates if r["name"].lower() == search_lower]
     if exact:
@@ -43,7 +43,7 @@ def _best_match(results: list, search_name: str, country: str = None):
 def resolve_leagues(client, leagues_config: list) -> dict:
     """
     Devuelve {key: {"id": int, "name": str, "country": str, "latest_season": int}}
-    Usa el caché en disco si ya existe; si falta alguna liga, la busca y la agrega.
+    Usa el cachÃ© en disco si ya existe; si falta alguna liga, la busca y la agrega.
     """
     from api_client import RateLimitExceeded  # import local para evitar dependencia circular
 
@@ -60,15 +60,22 @@ def resolve_leagues(client, leagues_config: list) -> dict:
             if changed:
                 save_cached_leagues(cached)
             raise
+        except Exception as e:
+            # Errores transitorios (5xx del proveedor, timeouts, etc.) no
+            # deben tirar abajo toda la corrida â€” se salta esta liga y se
+            # reintenta sola en la prÃ³xima corrida (sigue sin estar en cached).
+            print(f"[AVISO] Error buscando la liga '{key}', se salta esta corrida "
+                  f"(se reintenta la prÃ³xima vez): {e}")
+            continue
         best = _best_match(results, league["search"], league.get("country"))
         if not best:
-            print(f"[DEBUG] Búsqueda '{league['search']}' (país: {league.get('country')}) "
-                  f"devolvió {len(results)} resultado(s) crudos de la API.")
+            print(f"[DEBUG] BÃºsqueda '{league['search']}' (paÃ­s: {league.get('country')}) "
+                  f"devolviÃ³ {len(results)} resultado(s) crudos de la API.")
             if results:
                 nombres = [r.get("name") for r in results[:5]]
                 print(f"[DEBUG] Primeros nombres devueltos: {nombres}")
-            print(f"[AVISO] No se encontró la liga '{league['search']}' "
-                  f"(país: {league.get('country')}). Revisala manualmente en Highlightly.")
+            print(f"[AVISO] No se encontrÃ³ la liga '{league['search']}' "
+                  f"(paÃ­s: {league.get('country')}). Revisala manualmente en Highlightly.")
             continue
 
         seasons = best.get("seasons", [])
@@ -82,7 +89,7 @@ def resolve_leagues(client, leagues_config: list) -> dict:
         }
         changed = True
         print(f"[OK] Resuelta liga '{key}' -> id={cached[key]['id']} "
-              f"({cached[key]['name']}), temporada más reciente: {latest_season}")
+              f"({cached[key]['name']}), temporada mÃ¡s reciente: {latest_season}")
 
     if changed:
         save_cached_leagues(cached)
