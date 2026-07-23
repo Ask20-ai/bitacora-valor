@@ -4448,5 +4448,577 @@
         }
       }
     ]
+  },
+  {
+    "run_at": "2026-07-23T04:04:45.860019+00:00",
+    "alerts": [
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-02 02:30",
+          "home": "Los Angeles Galaxy",
+          "away": "FC Dallas"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.85,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.25,
+              "opponent_concede_avg": 2.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-02 00:30",
+          "home": "Sporting Kansas City",
+          "away": "Houston Dynamo"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.2,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.2,
+              "opponent_concede_avg": 2.5
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-02 00:30",
+          "home": "Chicago Fire",
+          "away": "Charlotte"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 10.6,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 6,
+              "opponent_concede_avg": 7.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-01 23:30",
+          "home": "DC United",
+          "away": "Nashville SC"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 11.2,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 5.6,
+              "opponent_concede_avg": 5.8
+            },
+            {
+              "side": "visitante",
+              "attack_avg": 5.6,
+              "opponent_concede_avg": 6.8
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-01 23:30",
+          "home": "DC United",
+          "away": "Nashville SC"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.4,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.4,
+              "opponent_concede_avg": 3.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-01 23:30",
+          "home": "Montréal Impact",
+          "away": "New England Revolution"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 7,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 7,
+              "opponent_concede_avg": 6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 0
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-01 23:30",
+          "home": "Vancouver Whitecaps",
+          "away": "Los Angeles FC"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.92,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 3.67,
+              "opponent_concede_avg": 2.25
+            }
+          ],
+          "sample_sizes": {
+            "home": 3,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-01 23:30",
+          "home": "FC Cincinnati",
+          "away": "San Jose Earthquakes"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 11.85,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 8.25,
+              "opponent_concede_avg": 7.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-08-01 23:30",
+          "home": "New York Red Bulls",
+          "away": "Orlando City"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.2,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.4,
+              "opponent_concede_avg": 2.2
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-30 00:00",
+          "home": "MLS All-Stars",
+          "away": "Liga MX All-Stars"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 15,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 7,
+              "opponent_concede_avg": 7
+            },
+            {
+              "side": "visitante",
+              "attack_avg": 8,
+              "opponent_concede_avg": 8
+            }
+          ],
+          "sample_sizes": {
+            "home": 1,
+            "away": 1
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-26 02:30",
+          "home": "Los Angeles FC",
+          "away": "Sporting Kansas City"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 3.45,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.2,
+              "opponent_concede_avg": 2.25
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-26 00:30",
+          "home": "St. Louis City SC",
+          "away": "Colorado Rapids"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 5.6,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.6,
+              "opponent_concede_avg": 3.25
+            },
+            {
+              "side": "visitante",
+              "attack_avg": 3,
+              "opponent_concede_avg": 2.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-26 00:30",
+          "home": "Minnesota United",
+          "away": "Vancouver Whitecaps"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 6.27,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 3.67,
+              "opponent_concede_avg": 2.4
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 3
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 23:30",
+          "home": "Orlando City",
+          "away": "Nashville SC"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 10.4,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 5.6,
+              "opponent_concede_avg": 7.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 23:30",
+          "home": "Orlando City",
+          "away": "Nashville SC"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.2,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.4,
+              "opponent_concede_avg": 2.2
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 23:30",
+          "home": "DC United",
+          "away": "Toronto FC"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 9.0,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 5.6,
+              "opponent_concede_avg": 5.8
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 23:30",
+          "home": "Montréal Impact",
+          "away": "Inter Miami"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 6.4,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 3,
+              "opponent_concede_avg": 2.2
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Major League Soccer",
+          "date": "2026-07-25 22:30",
+          "home": "New York Red Bulls",
+          "away": "Charlotte"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.8,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 2.4,
+              "opponent_concede_avg": 3.6
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 5
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Liga MX",
+          "date": "2026-08-02 03:00",
+          "home": "Cruz Azul",
+          "away": "Atlante FC"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 10.6,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 5.6,
+              "opponent_concede_avg": 11
+            }
+          ],
+          "sample_sizes": {
+            "home": 5,
+            "away": 1
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Liga MX",
+          "date": "2026-08-01 01:00",
+          "home": "Puebla",
+          "away": "Guadalajara Chivas"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 12.75,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 7.75,
+              "opponent_concede_avg": 6
+            }
+          ],
+          "sample_sizes": {
+            "home": 2,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Liga MX",
+          "date": "2026-07-25 23:07",
+          "home": "Guadalajara Chivas",
+          "away": "FC Juarez"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 12.75,
+          "signals": [
+            {
+              "side": "local",
+              "attack_avg": 7.75,
+              "opponent_concede_avg": 7
+            }
+          ],
+          "sample_sizes": {
+            "home": 4,
+            "away": 1
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Liga MX",
+          "date": "2026-07-25 03:00",
+          "home": "Atlante FC",
+          "away": "Club América"
+        },
+        "result": {
+          "market": "corners",
+          "line_reference": 9.5,
+          "projected_total": 15.5,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 10.5,
+              "opponent_concede_avg": 11
+            }
+          ],
+          "sample_sizes": {
+            "home": 1,
+            "away": 4
+          }
+        }
+      },
+      {
+        "fixture": {
+          "league": "Liga MX",
+          "date": "2026-07-25 03:00",
+          "home": "Club Tijuana",
+          "away": "León FC"
+        },
+        "result": {
+          "market": "cards",
+          "line_reference": 4.5,
+          "projected_total": 4.0,
+          "signals": [
+            {
+              "side": "visitante",
+              "attack_avg": 2.33,
+              "opponent_concede_avg": 3.67
+            }
+          ],
+          "sample_sizes": {
+            "home": 3,
+            "away": 3
+          }
+        }
+      }
+    ]
   }
 ]
