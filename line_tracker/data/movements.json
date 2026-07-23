@@ -1,4 +1,51 @@
 {
-  "generated_at": "2026-07-22T17:00:35.112751+00:00",
-  "movements": []
+  "generated_at": "2026-07-23T08:00:04.905031+00:00",
+  "movements": [
+    {
+      "home_team": "Los Angeles Chargers",
+      "away_team": "Arizona Cardinals",
+      "commence_time": "2026-09-13T20:25:00Z",
+      "flags": [
+        "Moneyline del local se movió 16.67 puntos (-593.33 → -610.0)"
+      ],
+      "opening": {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -593.33,
+        "h2h_away": 430.78,
+        "spread_home": -10.5,
+        "total": 46.28
+      },
+      "current": {
+        "at": "2026-07-23T08:00:04.823512+00:00",
+        "h2h_home": -610.0,
+        "h2h_away": 439.67,
+        "spread_home": -10.78,
+        "total": 46.28
+      },
+      "sport": "NFL"
+    },
+    {
+      "home_team": "New England Patriots",
+      "away_team": "Las Vegas Raiders",
+      "commence_time": "2026-10-11T17:00:00Z",
+      "flags": [
+        "Moneyline del local se movió 15.0 puntos (-395.0 → -410.0)"
+      ],
+      "opening": {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -395.0,
+        "h2h_away": 310.0,
+        "spread_home": -8.5,
+        "total": 44.5
+      },
+      "current": {
+        "at": "2026-07-23T08:00:04.823512+00:00",
+        "h2h_home": -410.0,
+        "h2h_away": 320.0,
+        "spread_home": -8.5,
+        "total": 44.5
+      },
+      "sport": "NFL"
+    }
+  ]
 }
