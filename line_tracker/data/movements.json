@@ -1,26 +1,95 @@
 {
-  "generated_at": "2026-07-23T17:04:04.900452+00:00",
+  "generated_at": "2026-07-24T07:56:49.324187+00:00",
   "movements": [
     {
-      "home_team": "Los Angeles Chargers",
-      "away_team": "Arizona Cardinals",
-      "commence_time": "2026-09-13T20:25:00Z",
+      "home_team": "San Francisco 49ers",
+      "away_team": "Miami Dolphins",
+      "commence_time": "2026-09-20T20:25:00Z",
       "flags": [
-        "Moneyline del local se movió 16.67 puntos (-593.33 → -610.0)"
+        "Moneyline del local se movió 25.0 puntos (-575.0 → -550.0)"
       ],
       "opening": {
         "at": "2026-07-22T17:00:34.980941+00:00",
-        "h2h_home": -593.33,
-        "h2h_away": 430.78,
+        "h2h_home": -575.0,
+        "h2h_away": 425.0,
         "spread_home": -10.5,
-        "total": 46.28
+        "total": 46.5
       },
       "current": {
-        "at": "2026-07-23T17:04:04.709305+00:00",
-        "h2h_home": -610.0,
-        "h2h_away": 439.67,
-        "spread_home": -10.78,
-        "total": 46.28
+        "at": "2026-07-24T07:56:49.186052+00:00",
+        "h2h_home": -550.0,
+        "h2h_away": 410.0,
+        "spread_home": -10.5,
+        "total": 46.5
+      },
+      "sport": "NFL"
+    },
+    {
+      "home_team": "Baltimore Ravens",
+      "away_team": "Tennessee Titans",
+      "commence_time": "2026-10-04T17:00:00Z",
+      "flags": [
+        "Moneyline del local se movió 15.0 puntos (-395.0 → -410.0)"
+      ],
+      "opening": {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -395.0,
+        "h2h_away": 310.0,
+        "spread_home": -8.5,
+        "total": 47.5
+      },
+      "current": {
+        "at": "2026-07-24T07:56:49.186052+00:00",
+        "h2h_home": -410.0,
+        "h2h_away": 320.0,
+        "spread_home": -8.5,
+        "total": 47.5
+      },
+      "sport": "NFL"
+    },
+    {
+      "home_team": "Miami Dolphins",
+      "away_team": "Cincinnati Bengals",
+      "commence_time": "2026-10-11T17:00:00Z",
+      "flags": [
+        "Moneyline del local se movió 15.0 puntos (195.0 → 210.0)"
+      ],
+      "opening": {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": 195.0,
+        "h2h_away": -238.0,
+        "spread_home": 5.5,
+        "total": 49.5
+      },
+      "current": {
+        "at": "2026-07-24T07:56:49.186052+00:00",
+        "h2h_home": 210.0,
+        "h2h_away": -258.0,
+        "spread_home": 5.75,
+        "total": 49.5
+      },
+      "sport": "NFL"
+    },
+    {
+      "home_team": "New York Jets",
+      "away_team": "Cleveland Browns",
+      "commence_time": "2026-10-11T17:00:00Z",
+      "flags": [
+        "Spread se movió 1.0 puntos hacia el local (-1.5 → -2.5)"
+      ],
+      "opening": {
+        "at": "2026-07-22T17:00:34.980941+00:00",
+        "h2h_home": -130.0,
+        "h2h_away": 110.0,
+        "spread_home": -1.5,
+        "total": 39.5
+      },
+      "current": {
+        "at": "2026-07-24T07:56:49.186052+00:00",
+        "h2h_home": -130.0,
+        "h2h_away": 110.0,
+        "spread_home": -2.5,
+        "total": 39.5
       },
       "sport": "NFL"
     },
@@ -39,7 +108,7 @@
         "total": 44.5
       },
       "current": {
-        "at": "2026-07-23T17:04:04.709305+00:00",
+        "at": "2026-07-24T07:56:49.186052+00:00",
         "h2h_home": -410.0,
         "h2h_away": 320.0,
         "spread_home": -8.5,
